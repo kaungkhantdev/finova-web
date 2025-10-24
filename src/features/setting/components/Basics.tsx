@@ -83,17 +83,17 @@ const Basics = () => {
                                         <div className="space-y-2 rounded-lg bg-[#ecedef] p-2">
                                             <div className="space-y-2 rounded-md bg-white p-2 shadow-xs">
                                                 <Skeleton className="h-2 w-[80px] rounded-lg bg-[#ecedef]"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-[#ecedef]"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-[#ecedef]"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-white p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-[#ecedef]"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-[#ecedef]"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-[#ecedef]"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-white p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-[#ecedef]"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-[#ecedef]"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-[#ecedef]"/>
                                             </div>
                                         </div>
 
@@ -113,17 +113,17 @@ const Basics = () => {
                                         <div className="space-y-2 rounded-lg bg-gray-900 p-2">
                                             <div className="space-y-2 rounded-md bg-gray-800 p-2 shadow-xs">
                                                 <Skeleton className="h-2 w-[80px] rounded-lg bg-gray-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-gray-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-gray-400"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-gray-800 p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-gray-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-gray-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-gray-400"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-gray-800 p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-gray-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-gray-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-gray-400"/>
                                             </div>
                                         </div>
 
@@ -143,17 +143,17 @@ const Basics = () => {
                                         <div className="space-y-2 rounded-lg bg-blue-900 p-2">
                                             <div className="space-y-2 rounded-md bg-blue-800 p-2 shadow-xs">
                                                 <Skeleton className="h-2 w-[80px] rounded-lg bg-blue-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-blue-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-blue-400"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-blue-800 p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-blue-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-blue-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-blue-400"/>
                                             </div>
 
                                             <div className="flex space-x-2 rounded-md bg-blue-800 p-2 shadow-xs">
                                                 <Skeleton className="h-4 w-4 rounded-full bg-blue-400"/>
-                                                <Skeleton className="h-2 w-[100px] rounded-lg bg-blue-400"/>
+                                                <Skeleton className="h-2 lg:w-[80px] xl:w-[100px] rounded-lg bg-blue-400"/>
                                             </div>
                                         </div>
 
