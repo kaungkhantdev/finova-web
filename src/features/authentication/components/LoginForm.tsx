@@ -6,14 +6,22 @@ import { Link } from "react-router"
 import { GoogleIcon } from "@/components/common/GoogleIcon"
 import PasswordInput from "@/components/common/PasswordInput"
 import BaseInput from "@/components/common/BaseInput"
+import useLogin from "../hooks/useLogin"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    onSubmit,
+  } = useLogin();
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
             <a
@@ -36,17 +44,21 @@ export function LoginForm({
           <div className="flex flex-col gap-6">
             <BaseInput
               id="email"
+              register={register}
+              errors={errors}
               label="Email"
-              type="email"
+              type="text"
               required
               placeholder="Enter your email" />
             <PasswordInput 
-              id="new_password"
-              label="New Password"
+              id="password"
+              register={register}
+              errors={errors}
+              label="Password"
               required
               placeholder="Enter your password"/>
             <Button type="submit" size={'lg'} className="w-full rounded-full">
-              Register
+              Login
             </Button>
           </div>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">

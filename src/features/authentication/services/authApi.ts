@@ -1,4 +1,5 @@
 import { baseApi } from "@/services/api/baseApi";
+import { API_ENDPOINTS } from "@/utils/constants";
 
 interface LoginRequest {
   email: string
@@ -14,7 +15,7 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
-        url: 'login', // your auth endpoint
+        url: API_ENDPOINTS.AUTH.LOGIN, // your auth endpoint
         method: 'POST',
         body: credentials,
       }),
