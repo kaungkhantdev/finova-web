@@ -3,7 +3,6 @@ import { type EndpointBuilder } from '@reduxjs/toolkit/query'
 import { baseApi } from './baseApi'
 
 interface CrudApiOptions<T> {
-  reducerPath: string
   tag: string
   endpoint: string
   customEndpoints?: (builder: EndpointBuilder<any, any, any>) => Record<string, any>
