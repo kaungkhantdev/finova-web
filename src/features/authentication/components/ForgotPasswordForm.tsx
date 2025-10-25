@@ -1,10 +1,9 @@
-// import { GalleryVerticalEnd } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/common/Logo"
+import BaseInput from "@/components/common/BaseInput"
+import { Link } from "react-router"
 
 export function ForgotPasswordForm({
   className,
@@ -27,22 +26,18 @@ export function ForgotPasswordForm({
             <h1 className="text-lg font-medium">Forgot Password</h1>
             <div className="text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <Link to="/auth/register" className="underline underline-offset-4">
                 Resister
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            <div className="grid gap-3">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                className="rounded-full"
-                required
-              />
-            </div>
+            <BaseInput
+              id="email"
+              label="Email"
+              type="email"
+              required
+              placeholder="Enter your email" />
             <div className="grid sm:grid-cols-2 gap-2">
                 <Button size={'lg'} type="submit" className="rounded-full">
                     Submit

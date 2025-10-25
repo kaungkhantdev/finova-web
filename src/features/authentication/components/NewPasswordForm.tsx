@@ -1,10 +1,8 @@
-// import { GalleryVerticalEnd } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Logo } from "@/components/common/Logo"
+import PasswordInput from "@/components/common/PasswordInput"
+import { Link } from "react-router"
 
 export function NewPasswordForm({
   className,
@@ -26,29 +24,23 @@ export function NewPasswordForm({
             </a>
             <h1 className="text-lg font-medium">Welcome to Finova.</h1>
             <div className="text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+              Do you have an account?{" "}
+              <Link to="/auth/login" className="underline underline-offset-4">
+                Login
+              </Link>
             </div>
           </div>
           <div className="flex flex-col gap-6">
-            <div className="grid gap-3">
-              <Label htmlFor="email">New Password</Label>
-              <Input
-                id="email"
-                required
-                className="rounded-full"
-              />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="email">Confirm Password</Label>
-              <Input
-                id="email"
-                required
-                className="rounded-full"
-              />
-            </div>
+            <PasswordInput 
+              id="new_password"
+              label="New Password"
+              required
+              placeholder="Enter your password"/>
+            <PasswordInput 
+              id="c_password"
+              label="Confirm Password"
+              required
+              placeholder="Enter your password"/> 
             <Button type="submit" size={'lg'} className="w-full rounded-full">
               Confirm
             </Button>
