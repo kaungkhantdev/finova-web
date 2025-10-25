@@ -1,4 +1,4 @@
-import { userApiService } from '@/features/user/services/userApi';
+import { userApiService } from '@/features/user/services/usersApi';
 import { userActions } from '@/features/user/store';
 import type { User } from '@/features/user/type';
 import React, { useCallback, useEffect, useState } from 'react';

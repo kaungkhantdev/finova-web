@@ -12,28 +12,6 @@ export const API_ENDPOINTS = {
   
   // User endpoints
   USERS: {
-    PROFILE: '/users/me',
-    UPDATE_PROFILE: '/users/profile',
-    UPLOAD_AVATAR: '/users/avatar',
-    SETTINGS: '/users/settings',
-    LIST: '/users',
-    BY_ID: (id: string) => `/users/${id}`,
-  },
-  
-  // Booking endpoints
-  HOTELS: {
-    GET: '/admin/hotels',
-    CREATE: '/admin/hotels',
-    BY_ID: (id: string) => `/admin/hotels/${id}`,
-    UPDATE: (id: string) => `/admin/hotels/${id}`,
-    DELETE: (id: string) => `/admin/hotels/${id}`,
-  },
-  
-  // Storage endpoints
-  STORAGE: {
-    LIST: '/storage',
-    UPLOAD: '/storage/upload',
-    DOWNLOAD: (id: string) => `/storage/${id}/download`,
-    DELETE: (id: string) => `/storage/${id}`,
+    PROFILE: '/users/profile',
   },
 } as const;

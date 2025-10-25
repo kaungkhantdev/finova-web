@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { authApiService } from '../services/authApiService';
+import { authApiService } from '../services/authApi';
 import { userActions } from '@/features/user/store';
 import { useDispatch } from 'react-redux';
 

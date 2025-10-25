@@ -5,8 +5,8 @@ import * as z from 'zod';
 import { emailSchema } from '@/utils/helpers/validations';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '@/contexts';
-import { authApiService } from '../services/authApiService';
-import { userApiService } from '@/features/user/services/userApi';
+import { authApiService } from '../services/authApi';
+import { userApiService } from '@/features/user/services/usersApi';
 import type { User } from '@/features/user/type';
 import { toast } from 'sonner';
 
