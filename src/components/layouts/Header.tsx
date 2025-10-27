@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Link, useLocation } from "react-router";
 import { ROUTES } from "@/utils/constants";
 import Logo from "@/assets/logo.svg";
@@ -10,6 +10,7 @@ import {
   Wallet,
 } from "lucide-react";
 import React from "react";
+import { NavUser } from "@/features/user";
 
 interface NavParams {
   url: string;
@@ -106,10 +107,15 @@ const Header: React.FC = () => {
           </div>
 
           <div className="flex items-center">
-            <Avatar className="rounded-full w-8 h-8">
+            {/* <Avatar className="rounded-full w-8 h-8">
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            </Avatar> */}
+            <NavUser user={{
+              name: 'HILLO',
+              email: 'test@gmail.com',
+              avatar: 'https://github.com/shadcn.png'
+            }}/>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import Loading from '@/components/common/Loading';
 import useAuth from '@/contexts/auth/useAuth';
 import { ROUTES } from '@/utils/constants';
 import React from 'react';
@@ -8,7 +9,7 @@ export const AuthRoutes: React.FC = () => {
   
   // Wait for auth to initialize
   if (!isInitialized) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   
   console.log('AuthRoutes - isAuthenticated:', isAuthenticated);

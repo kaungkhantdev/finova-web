@@ -1,24 +1,26 @@
 import { useNavigate } from 'react-router';
-import { authApiService } from '../services/authApi';
 import { userActions } from '@/features/user/store';
 import { useDispatch } from 'react-redux';
+import { ROUTES } from '@/utils/constants';
+import { useLogoutMutation } from '../services/authApi';
 
 const useLogout = () => {
     // Use navigate for redirection
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [logout, { isLoading, isError, error }] = useLogoutMutation();
 
     const onSubmit = async () => {
         console.log('logout')
-        const result = await authApiService.logout();
+        const result = await logout().unwrap();
         
-        if (result && result.status.toString() == 'success') {
+        if (result && result.success) {
             dispatch(userActions.clearUser());
-            navigate('/');
+            navigate(`${ROUTES.AUTH+"/"+ROUTES.LOGIN}`);
         }
     };
 
-    return { onSubmit };
+    return { onSubmit, isLoading, isError, error };
 }
 
 export default useLogout;
