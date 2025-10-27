@@ -7,16 +7,20 @@ export interface PaginationMeta {
     prev_page: number;
 }
 
-export interface ApiResponse<T> {
-    status: number;
-    message: string;
+export interface ApiResponse<T> extends ApiResponseMessage {
     data: T[];
     metadata: PaginationMeta;
 }
-
-export interface ApiResponseNotPaginate<T> {
-    status: number;
+export interface ApiResponseMessage {
+    error: boolean;
     message: string;
+    status: string;
+    success: boolean;
+    timestamp: string;
+    warning: boolean;
+}
+
+export interface ApiResponseNotPaginate<T> extends ApiResponseMessage {
     data: T;
 }
 
