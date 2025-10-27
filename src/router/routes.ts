@@ -2,6 +2,8 @@ import NotFound from "@/components/common/NotFound";
 import { ROUTES } from "@/utils/constants";
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
+import { ProtectedRoutes } from "./protectedRoutes";
+import { AuthRoutes } from "./authRoutes";
 
 const MainLayout = lazy(() => import('@/components/layouts/MainLayout'));
 const FinancePage = lazy(() => import('@/features/finance/page/FinancePage'));
@@ -18,51 +20,61 @@ const NewPasswordPage = lazy(() => import('@/features/authentication/page/NewPas
 
 const router = createBrowserRouter([
   {
-    path: ROUTES.AUTH,
+    Component: AuthRoutes,
     children: [
       {
-        path: ROUTES.REGISTER,
-        Component: Register,
-      },
-      {
-        path: ROUTES.LOGIN,
-        Component: LoginPage,
-      },
-      {
-        path: ROUTES.FORGOT_PASSWORD,
-        Component: ForgotPasswordPage,
-      },
-      {
-        path: ROUTES.RESET_PASSWORD,
-        Component: NewPasswordPage,
-      },
+        path: ROUTES.AUTH,
+        children: [
+          {
+            path: ROUTES.REGISTER,
+            Component: Register,
+          },
+          {
+            path: ROUTES.LOGIN,
+            Component: LoginPage,
+          },
+          {
+            path: ROUTES.FORGOT_PASSWORD,
+            Component: ForgotPasswordPage,
+          },
+          {
+            path: ROUTES.RESET_PASSWORD,
+            Component: NewPasswordPage,
+          },
+        ]
+      }
     ]
   },
   {
-    Component: MainLayout,
+    Component: ProtectedRoutes,
     children: [
-        {
-          index: true,
-          path: ROUTES.HOME,
-          Component: FinancePage,
-        },
-        {
-          path: ROUTES.WALLET,
-          Component: WalletPage,
-        },
-        {
-          path: ROUTES.ANALYSIS,
-          Component: AnalysisPage,
-        },
-        {
-          path: ROUTES.TRANSACTION,
-          Component: TransitionPage,
-        },
-        {
-          path: ROUTES.SETTING,
-          Component: SettingPage,
-        },
-    ],
+      {
+        Component: MainLayout,
+        children: [
+            {
+              index: true,
+              path: ROUTES.HOME,
+              Component: FinancePage,
+            },
+            {
+              path: ROUTES.WALLET,
+              Component: WalletPage,
+            },
+            {
+              path: ROUTES.ANALYSIS,
+              Component: AnalysisPage,
+            },
+            {
+              path: ROUTES.TRANSACTION,
+              Component: TransitionPage,
+            },
+            {
+              path: ROUTES.SETTING,
+              Component: SettingPage,
+            },
+        ],
+      },
+    ]
   },
   {
     path: '*',

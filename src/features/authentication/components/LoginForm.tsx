@@ -7,6 +7,7 @@ import { GoogleIcon } from "@/components/common/GoogleIcon"
 import PasswordInput from "@/components/common/PasswordInput"
 import BaseInput from "@/components/common/BaseInput"
 import useLogin from "../hooks/useLogin"
+import { ROUTES } from "@/utils/constants"
 
 export function LoginForm({
   className,
@@ -36,7 +37,7 @@ export function LoginForm({
             <h1 className="text-lg font-medium">Welcome to Finova.</h1>
             <div className="text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
-              <Link to="/auth/register" className="underline underline-offset-4">
+              <Link to={ROUTES.AUTH + "/" + ROUTES.REGISTER} className="underline underline-offset-4">
                 Register
               </Link>
             </div>
@@ -74,6 +75,11 @@ export function LoginForm({
           </div>
         </div>
       </form>
+      <div className="text-center text-sm text-muted-foreground">
+        <Link to={ROUTES.AUTH + "/" + ROUTES.FORGOT_PASSWORD} className="underline underline-offset-4">
+          Forgot Password
+        </Link>
+      </div>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
         and <a href="#">Privacy Policy</a>.

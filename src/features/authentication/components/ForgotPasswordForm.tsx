@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/common/Logo"
 import BaseInput from "@/components/common/BaseInput"
 import { Link } from "react-router"
+import { ROUTES } from "@/utils/constants"
 
 export function ForgotPasswordForm({
   className,
@@ -26,7 +27,7 @@ export function ForgotPasswordForm({
             <h1 className="text-lg font-medium">Forgot Password</h1>
             <div className="text-center text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
-              <Link to="/auth/register" className="underline underline-offset-4">
+              <Link to={ROUTES.AUTH + "/" + ROUTES.REGISTER} className="underline underline-offset-4">
                 Resister
               </Link>
             </div>

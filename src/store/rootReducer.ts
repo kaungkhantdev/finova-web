@@ -2,7 +2,7 @@ import { baseApi } from '@/services/api/baseApi';
 import { combineReducers } from '@reduxjs/toolkit';
 
 // Import feature reducers
-// import { userReducer } from '../features/user/store';
+import { userReducer } from '../features/user/store';
 
 /**
  * Root reducer combining all feature reducers
@@ -15,7 +15,7 @@ export const rootReducer = combineReducers({
 //   app: appSlice.reducer,
   
   // Feature slices
-  // user: userReducer,
+  user: userReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

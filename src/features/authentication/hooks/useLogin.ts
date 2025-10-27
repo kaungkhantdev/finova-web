@@ -1,13 +1,12 @@
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { emailSchema } from '@/utils/helpers/validations';
 import { useNavigate } from 'react-router';
-import { AuthContext } from '@/contexts';
 import { toast } from 'sonner';
 import { useLoginMutation } from '../services/authApi';
 import { useLazyProfileQuery } from '@/features/user/services/usersApi';
+import useAuth from '@/contexts/auth/useAuth';
 
 const schema = z.object({
     email: emailSchema,
@@ -23,7 +22,7 @@ const useLogin = () => {
     });
 
     const navigate = useNavigate();
-    const { setAuthenticatedUser } = useContext(AuthContext);
+    const { setAuthenticatedUser } = useAuth();
 
     const onSubmit = async (data: z.infer<typeof schema>) => {
         try {

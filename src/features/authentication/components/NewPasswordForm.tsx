@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/common/Logo"
 import PasswordInput from "@/components/common/PasswordInput"
 import { Link } from "react-router"
+import { ROUTES } from "@/utils/constants"
 
 export function NewPasswordForm({
   className,
@@ -25,7 +26,7 @@ export function NewPasswordForm({
             <h1 className="text-lg font-medium">Welcome to Finova.</h1>
             <div className="text-center text-sm text-muted-foreground">
               Do you have an account?{" "}
-              <Link to="/auth/login" className="underline underline-offset-4">
+              <Link to={ROUTES.AUTH + "/" + ROUTES.LOGIN} className="underline underline-offset-4">
                 Login
               </Link>
             </div>

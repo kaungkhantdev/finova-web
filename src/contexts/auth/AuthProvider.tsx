@@ -1,51 +1,52 @@
-// import { userApiService } from '@/features/user/services/usersApi';
-// import { userActions } from '@/features/user/store';
-// import type { User } from '@/features/user/type';
-// import React, { useCallback, useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { AuthContext } from './AuthContext';
-// import type { RootState } from '@/store';
+import { userActions } from '@/features/user/store';
+import type { User } from '@/features/user/type';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthContext } from './AuthContext';
+import type { RootState } from '@/store';
+import { useLazyProfileQuery } from '@/features/user/services/usersApi';
 
-// export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//   const [isInitialized, setIsInitialized] = useState(false);
-//   const dispatch = useDispatch();
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isInitialized, setIsInitialized] = useState(false);
+  const dispatch = useDispatch();
+  const [triggerProfile] = useLazyProfileQuery();
   
-//   // Get user from Redux store instead of local state
-//   const user = useSelector((state: RootState) => state.user.user); // Adjust selector based on your store structure
+  
+  // Get user from Redux store instead of local state
+  const user = useSelector((state: RootState) => state.user.user); // Adjust selector based on your store structure
 
-//   const setAuthenticatedUser = useCallback((user: User) => {
-//     dispatch(userActions.setUser(user));
-//   }, [dispatch]);
+  const setAuthenticatedUser = useCallback((user: User) => {
+    dispatch(userActions.setUser(user));
+  }, [dispatch]);
 
-//   const initialize = useCallback(async () => {
-//     try {
-//       const result = await userApiService.getUser();
-//       if (result) {
-//         dispatch(userActions.setUser(result.data));
-//       }
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     } catch (error: any) {
-//       console.error('Failed to initialize user:', error);
-//       throw new Error(error);
-//     } finally {
-//       setIsInitialized(true);
-//     }
-//   }, [dispatch]);
+  const initialize = useCallback(async () => {
+    try {
+      const profileResult = await triggerProfile().unwrap();
+      const user = profileResult?.data;
+      if (user) {
+        dispatch(userActions.setUser(user));
+      }
+    } catch (error) {
+      console.error('Failed to initialize user:', error);
+    } finally {
+      setIsInitialized(true);
+    }
+  }, [dispatch, triggerProfile]);
 
-//   useEffect(() => {
-//     initialize();
-//   }, [initialize]);
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
 
-//   return (
-//     <AuthContext.Provider
-//       value={{
-//         user,
-//         isAuthenticated: !!user,
-//         isInitialized,
-//         setAuthenticatedUser,
-//       }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isInitialized,
+        setAuthenticatedUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
