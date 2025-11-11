@@ -1,5 +1,5 @@
 import { baseApi } from "@/services/api/baseApi";
-import type { ApiResponseMessage } from "@/types";
+import type { ApiResponseMessage, ApiResponseNotPaginate } from "@/types";
 import { API_ENDPOINTS } from "@/utils/constants";
 
 interface LoginRequest {
@@ -50,7 +50,7 @@ export const authApi = baseApi.injectEndpoints({
         body: credentials,
       }),
     }),
-    verifyOtp: builder.mutation<ApiResponseMessage, VerifyOtpRequest>({
+    verifyOtp: builder.mutation<ApiResponseNotPaginate<{reset_token: string}>, VerifyOtpRequest>({
       query: (credentials) => ({
         url: API_ENDPOINTS.AUTH.VERIFY_OTP,
         method: 'POST',

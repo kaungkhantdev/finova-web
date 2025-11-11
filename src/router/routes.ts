@@ -16,7 +16,8 @@ const SettingPage = lazy(() => import('@/features/setting/page/SettingPage'));
 const Register = lazy(() => import('@/features/authentication/page/RegisterPage'));
 const LoginPage = lazy(() => import('@/features/authentication/page/LoginPage'));
 const ForgotPasswordPage = lazy(() => import('@/features/authentication/page/ForgotPasswordPage'));
-const NewPasswordPage = lazy(() => import('@/features/authentication/page/NewPasswordPage'));
+const VerifyOtpPage = lazy(() => import('@/features/authentication/page/VerifyOtpPage'));
+const ResetPasswordPage = lazy(() => import('@/features/authentication/page/ResetPasswordPage'));
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,12 @@ const router = createBrowserRouter([
             Component: ForgotPasswordPage,
           },
           {
+            path: ROUTES.VERIFY_OTP,
+            Component: VerifyOtpPage,
+          },
+          {
             path: ROUTES.RESET_PASSWORD,
-            Component: NewPasswordPage,
+            Component: ResetPasswordPage,
           },
         ]
       }

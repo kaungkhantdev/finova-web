@@ -6,6 +6,7 @@ import BaseInput from "@/components/common/BaseInput"
 import { Link } from "react-router"
 import { ROUTES } from "@/utils/constants"
 import useForgotPassword from "../hooks/useForgotPassword"
+import { RotateCw } from "lucide-react"
 
 export function ForgotPasswordForm({
   className,
@@ -16,6 +17,7 @@ export function ForgotPasswordForm({
     handleSubmit,
     formState: { errors },
     onSubmit,
+    isLoading,
   } = useForgotPassword();
 
   return (
@@ -50,8 +52,16 @@ export function ForgotPasswordForm({
               required
               placeholder="Enter your email" />
             <div className="grid sm:grid-cols-2 gap-2">
-                <Button size={'lg'} type="submit" className="rounded-full">
-                    Submit
+                <Button disabled={isLoading} size={'lg'} type="submit" className="rounded-full">
+                    {isLoading ? (
+                        <>
+                          <RotateCw className="h-4 animate-spin" />
+                          Loading
+                        </>
+                      ) : (
+                        "Submit"
+                      )
+                    }
                 </Button>
                 <Button size={'lg'} variant={"secondary"} className="rounded-full">
                     <Link to={ROUTES.AUTH + "/" + ROUTES.LOGIN} className="">

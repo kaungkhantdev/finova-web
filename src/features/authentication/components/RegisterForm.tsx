@@ -8,6 +8,7 @@ import BaseInput from "@/components/common/BaseInput"
 import PasswordInput from "@/components/common/PasswordInput"
 import { ROUTES } from "@/utils/constants"
 import useRegister from "../hooks/useRegister"
+import { RotateCw } from "lucide-react"
 
 export function RegisterForm({
   className,
@@ -18,6 +19,7 @@ export function RegisterForm({
     handleSubmit,
     formState: { errors },
     onSubmit,
+    isLoading,
   } = useRegister();
   
   return (
@@ -73,8 +75,16 @@ export function RegisterForm({
               label="Confirm Password"
               required
               placeholder="Enter your password"/>
-            <Button type="submit" size={'lg'} className="w-full rounded-full">
-              Register
+            <Button disabled={isLoading} type="submit" size={'lg'} className="w-full rounded-full">
+              {isLoading ? (
+                  <>
+                    <RotateCw className="h-4 animate-spin" />
+                    Loading
+                  </>
+                ) : (
+                  "Register"
+                )
+              }
             </Button>
           </div>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">

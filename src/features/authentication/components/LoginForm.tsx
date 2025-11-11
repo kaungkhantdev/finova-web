@@ -8,6 +8,7 @@ import PasswordInput from "@/components/common/PasswordInput"
 import BaseInput from "@/components/common/BaseInput"
 import useLogin from "../hooks/useLogin"
 import { ROUTES } from "@/utils/constants"
+import { RotateCw } from "lucide-react"
 
 export function LoginForm({
   className,
@@ -18,6 +19,7 @@ export function LoginForm({
     handleSubmit,
     formState: { errors },
     onSubmit,
+    isLoading,
   } = useLogin();
 
   return (
@@ -58,8 +60,16 @@ export function LoginForm({
               label="Password"
               required
               placeholder="Enter your password"/>
-            <Button type="submit" size={'lg'} className="w-full rounded-full">
-              Login
+            <Button disabled={isLoading} type="submit" size={'lg'} className="w-full rounded-full">
+              {isLoading ? (
+                  <>
+                    <RotateCw className="h-4 animate-spin" />
+                    Loading
+                  </>
+                ) : (
+                  "Login"
+                )
+              }
             </Button>
           </div>
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">

@@ -5,6 +5,7 @@ import { emailSchema } from '@/utils/helpers/validations';
 import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { useForgotPasswordMutation } from '../services/authApi';
+import { ROUTES } from '@/utils/constants';
 
 const schema = z.object({
     email: emailSchema,
@@ -28,11 +29,10 @@ const useForgotPassword = () => {
  
             if (result?.success) {
                 toast.success('Forgot Password successful!');
-                navigate('/');
+                navigate(ROUTES.AUTH+'/'+ROUTES.VERIFY_OTP, { state: { email: data.email } } );
             } else {
                 toast.error(result?.message || 'Forgot Password failed');
             }
-
         } catch (error) {
             console.error('Forgot Password error:', error);
             const errorMessage = 'Something went wrong during Forgot Password. Please try again.';
