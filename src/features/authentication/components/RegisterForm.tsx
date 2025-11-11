@@ -7,14 +7,22 @@ import { Link } from "react-router"
 import BaseInput from "@/components/common/BaseInput"
 import PasswordInput from "@/components/common/PasswordInput"
 import { ROUTES } from "@/utils/constants"
+import useRegister from "../hooks/useRegister"
 
 export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    onSubmit,
+  } = useRegister();
+  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
             <a
@@ -36,18 +44,32 @@ export function RegisterForm({
           </div>
           <div className="flex flex-col gap-6">
             <BaseInput
+              id="name"
+              register={register}
+              errors={errors}
+              label="Name"
+              type="text"
+              required
+              placeholder="Add user name" />
+            <BaseInput
               id="email"
+              register={register}
+              errors={errors}
               label="Email"
               type="email"
               required
               placeholder="Enter your email" />
             <PasswordInput 
-              id="new_password"
-              label="New Password"
+              id="password"
+              register={register}
+              errors={errors}
+              label="Password"
               required
               placeholder="Enter your password"/>
             <PasswordInput 
               id="c_password"
+              register={register}
+              errors={errors}
               label="Confirm Password"
               required
               placeholder="Enter your password"/>

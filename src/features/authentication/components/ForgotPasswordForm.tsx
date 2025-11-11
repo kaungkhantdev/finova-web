@@ -5,14 +5,22 @@ import { Logo } from "@/components/common/Logo"
 import BaseInput from "@/components/common/BaseInput"
 import { Link } from "react-router"
 import { ROUTES } from "@/utils/constants"
+import useForgotPassword from "../hooks/useForgotPassword"
 
 export function ForgotPasswordForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    onSubmit,
+  } = useForgotPassword();
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
             <a
@@ -35,6 +43,8 @@ export function ForgotPasswordForm({
           <div className="flex flex-col gap-6">
             <BaseInput
               id="email"
+              register={register}
+              errors={errors}
               label="Email"
               type="email"
               required
@@ -44,7 +54,9 @@ export function ForgotPasswordForm({
                     Submit
                 </Button>
                 <Button size={'lg'} variant={"secondary"} className="rounded-full">
-                    Cancel
+                    <Link to={ROUTES.AUTH + "/" + ROUTES.LOGIN} className="">
+                      Cancel
+                    </Link>
                 </Button>
             </div>
           </div>
