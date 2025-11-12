@@ -112,17 +112,8 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                 />
             </div>
         </div>
-        
-        <div className="grid gap-3 mt-4">
-            <Label htmlFor={`${type}-description`}>Notes</Label>
-            <Textarea 
-            id={`${type}-description`}
-            className="max-h-40"
-            placeholder="Write your note."
-            />
-        </div>
 
-        <ScrollArea className="sm:h-72">
+        <ScrollArea className="sm:h-96">
             {/* Wallets */}
             <div className="w-full max-w-md">
                 <FieldGroup>
@@ -133,8 +124,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                     <FieldDescription>
                         Select your one of the bank.
                     </FieldDescription>
-                    <div className=" grid gap-3">
-                        <RadioGroup defaultValue="kubernetes" className="grid grid-cols-2 gap-3">
+                    <RadioGroup defaultValue="kubernetes" className="grid grid-cols-2 gap-3">
                             <FieldLabel htmlFor="kubernetes-r2h">
                             <Field orientation="horizontal">
                                 <FieldContent>
@@ -180,7 +170,6 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                             </Field>
                             </FieldLabel>
                         </RadioGroup>
-                    </div>
                     </FieldSet>
                 </FieldGroup>
             </div>
@@ -195,7 +184,6 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                     <FieldDescription>
                         Select your category.
                     </FieldDescription>
-                    <div className="flex gap-3">
                     <RadioGroup defaultValue="kubernetes" className="flex gap-3">
                         <FieldLabel htmlFor="kubernetes-r2h">
                         <Field orientation="horizontal">
@@ -214,18 +202,18 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                         </Field>
                         </FieldLabel>
                     </RadioGroup>
-
-                    <FieldLabel>
-                        <Field orientation="horizontal">
-                            <FieldContent>
-                                <FieldTitle>More</FieldTitle>
-                            </FieldContent>
-                        </Field>
-                    </FieldLabel>
-                </div>
                     </FieldSet>
                 </FieldGroup>
             </div>
+
+            <div className="grid gap-3 mt-4">
+                <Label htmlFor={`${type}-description`}>Notes</Label>
+                <Textarea 
+                id={`${type}-description`}
+                className="max-h-40"
+                placeholder="Write your note."
+            />
+        </div>
         </ScrollArea>
         
       </div>
