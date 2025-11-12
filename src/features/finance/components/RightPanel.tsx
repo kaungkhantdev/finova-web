@@ -1,8 +1,9 @@
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ChartPieDonutText } from './ChartPieDonutText';
 import { RightPanelHeader } from './RightPanelHeader';
 import { RightPanelCategoryList } from './RightPanelCategoryList';
+import { AddIncome } from './AddIncome';
+import { AddExpense } from './AddExpense';
 
 export const RightPanel = () => (
   <div className="p-6 lg:py-6 flex items-center justify-center dark:bg-card bg-white w-full 2xl:min-h-screen rounded-3xl lg:rounded-none">
@@ -19,9 +20,7 @@ export const RightPanel = () => (
           </div>
           <h3 className="text-xl font-bold">$16,281.48</h3>
           <span className="text-sm text-gray-500">Monthly income - month diff</span>
-          <Button size="lg" className="rounded-full mt-4">
-            Add Income
-          </Button>
+          <AddIncome />
         </div>
 
         {/* Expense */}
@@ -32,9 +31,7 @@ export const RightPanel = () => (
           </div>
           <h3 className="text-xl font-bold">$16,281.48</h3>
           <span className="text-sm text-gray-500">Monthly expense - month diff</span>
-          <Button size="lg" variant="secondary" className="rounded-full mt-4">
-            Add Expense
-          </Button>
+          <AddExpense />
         </div>
       </div>
     </div>

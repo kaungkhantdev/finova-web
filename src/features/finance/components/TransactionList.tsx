@@ -76,15 +76,15 @@ export function TransactionList() {
               {
               transaction.isPositive ? (
                 <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-green-100 dark:bg-green-900`}
-              >
-                <BanknoteArrowUp className="w-4 h-4" />
-              </div>) : (
-                <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-red-100 dark:bg-red-900`}
-              >
-                <BanknoteArrowDown className="w-4 h-4" />
-              </div>)
+                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-green-100 dark:bg-green-900`}
+                >
+                  <BanknoteArrowUp className="w-4 h-4" />
+                </div>) : (
+                  <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-red-100 dark:bg-red-900`}
+                >
+                  <BanknoteArrowDown className="w-4 h-4" />
+                </div>)
               }
 
               {/* Name and Type */}
