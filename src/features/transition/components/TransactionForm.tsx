@@ -2,26 +2,30 @@
 import { Button } from "@/components/ui/button"
 import { DialogClose } from "@/components/ui/dialog"
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
-import { BanknoteArrowUp, Calendar, CheckCircle, LayoutDashboard, PiggyBank } from "lucide-react"
+import { BanknoteArrowUp, Calendar, CheckCircle, PiggyBank } from "lucide-react"
+import { CategoryCombobox } from "./CategoryCombobox"
+import BaseInput from "@/components/common/BaseInput"
+import useIncomeExpense from "../hooks/useIncomeExpense"
 
 export const TransactionForm = ({ type }:  { type: string }) => {
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    console.log(`${type} submitted`)
-    // Add your submission logic here
-  }
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        // onSubmit,
+        // isLoading,
+    } = useIncomeExpense();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-6 gap-y-6">
 
-      <div className="hidden md:block">
+      <div className="hidden md:block rounded-xl border">
         <div className=" p-3 flex items-center justify-center">
-            <div className="w-full max-w-md bg-white rounded-xl shadow-lg">
+            <div className="w-full max-w-md">
                 {/* Header */}
                 <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -94,26 +98,33 @@ export const TransactionForm = ({ type }:  { type: string }) => {
       </div>
 
       <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-2 gap-6 w-full">
-            <div className="grid gap-3">
-                <Label htmlFor={`${type}-title`}>Title</Label>
-                <Input
-                    id={`${type}-title`}
-                    placeholder="Title"
-                    required
-                />
-            </div>
-            <div className="grid gap-3">
-                <Label htmlFor={`${type}-amount`}>Amount</Label>
-                <Input
-                    id={`${type}-amount`}
-                    placeholder="0.00"
-                    required
-                />
-            </div>
+        <div className="grid grid-cols-2 gap-3 w-full">
+            <BaseInput
+              id="title"
+              register={register}
+              errors={errors}
+              label="Title"
+              type="text"
+              required
+              placeholder="Enter your Title" />
+        
+            <BaseInput
+              id="amount"
+              register={register}
+              errors={errors}
+              label="Amount"
+              type="number"
+              required
+              placeholder="Enter your amount" />
         </div>
 
-        <ScrollArea className="sm:h-96">
+        {/* Categories */}
+        <div className="w-full max-w-md grid gap-3" >
+            <Label htmlFor={`${type}-amount`}>Category</Label>
+            <CategoryCombobox />
+        </div>
+
+        <ScrollArea className="sm:h-72">
             {/* Wallets */}
             <div className="w-full max-w-md">
                 <FieldGroup>
@@ -129,9 +140,10 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                             <Field orientation="horizontal">
                                 <FieldContent>
                                     <FieldTitle>
-                                        <PiggyBank className=" size-5 " />
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
                                     </FieldTitle>
-                                    <FieldTitle>Kubernetes</FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
                                 </FieldContent>
                                 <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
                             </Field>
@@ -140,68 +152,63 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                             <Field orientation="horizontal">
                                 <FieldContent>
                                     <FieldTitle>
-                                        <PiggyBank className=" size-5 " />
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
                                     </FieldTitle>
-                                    <FieldTitle>Kubernetes</FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
                                 </FieldContent>
                                 <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
                             </Field>
                             </FieldLabel>
-                            <FieldLabel htmlFor="vm-z4k">
+                            <FieldLabel htmlFor="kubernetes-r2h">
                             <Field orientation="horizontal">
                                 <FieldContent>
                                     <FieldTitle>
-                                        <PiggyBank className=" size-5 " />
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
                                     </FieldTitle>
-                                    <FieldTitle>Kubernetes</FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
                                 </FieldContent>
-                                <RadioGroupItem value="vm" id="vm-z4k" />
+                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                            </Field>
+                            </FieldLabel>
+                            <FieldLabel htmlFor="kubernetes-r2h">
+                            <Field orientation="horizontal">
+                                <FieldContent>
+                                    <FieldTitle>
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
+                                    </FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
+                                </FieldContent>
+                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                            </Field>
+                            </FieldLabel>
+                            <FieldLabel htmlFor="hel-r2h">
+                            <Field orientation="horizontal">
+                                <FieldContent>
+                                    <FieldTitle>
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
+                                    </FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
+                                </FieldContent>
+                                <RadioGroupItem value="ello" id="hel-r2h" />
                             </Field>
                             </FieldLabel>
                             <FieldLabel htmlFor="vm-z4k">
                             <Field orientation="horizontal">
                                 <FieldContent>
-                                    <FieldTitle>
-                                        <LayoutDashboard className=" size-5 " />
+                                   <FieldTitle>
+                                        <PiggyBank className=" size-4 " />
+                                        <h1>K Bank</h1>
                                     </FieldTitle>
-                                    <FieldTitle>More</FieldTitle>
+                                    <FieldTitle>459.00 THB</FieldTitle>
                                 </FieldContent>
                                 <RadioGroupItem value="vm" id="vm-z4k" />
                             </Field>
                             </FieldLabel>
                         </RadioGroup>
-                    </FieldSet>
-                </FieldGroup>
-            </div>
-
-            {/* Categories */}
-            <div className="w-full mt-4 max-w-md">
-                <FieldGroup>
-                    <FieldSet>
-                    <FieldLabel htmlFor="compute-environment-p8w">
-                        Categories
-                    </FieldLabel>
-                    <FieldDescription>
-                        Select your category.
-                    </FieldDescription>
-                    <RadioGroup defaultValue="kubernetes" className="flex gap-3">
-                        <FieldLabel htmlFor="kubernetes-r2h">
-                        <Field orientation="horizontal">
-                            <FieldContent>
-                                <FieldTitle>Kubernetes</FieldTitle>
-                            </FieldContent>
-                            <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                        </Field>
-                        </FieldLabel>
-                        <FieldLabel htmlFor="vm-z4k">
-                        <Field orientation="horizontal">
-                            <FieldContent>
-                                <FieldTitle>Kubernetes</FieldTitle>
-                            </FieldContent>
-                            <RadioGroupItem value="vm" id="vm-z4k" />
-                        </Field>
-                        </FieldLabel>
-                    </RadioGroup>
                     </FieldSet>
                 </FieldGroup>
             </div>
@@ -218,9 +225,8 @@ export const TransactionForm = ({ type }:  { type: string }) => {
         
       </div>
       
-      <div className="col-span-2"><hr /></div>
       <div className="justify-end flex gap-3 w-full col-span-2">
-        <Button onClick={handleSubmit} size={'lg'} className="rounded-full">
+        <Button onClick={() => handleSubmit} size={'lg'} className="rounded-full">
           Confirm
         </Button>
         <DialogClose asChild>

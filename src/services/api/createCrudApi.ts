@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type EndpointBuilder } from '@reduxjs/toolkit/query'
 import { baseApi } from './baseApi'
+import type { ApiResponseNotPaginate } from '@/types'
 
 interface CrudApiOptions<T> {
   tag: string
@@ -27,7 +28,7 @@ export const createCrudApi = <T>({
         providesTags: (_result, _error, id) => [{ type: tag, id }],
       }),
     
-      create: builder.mutation<T, Partial<T>>({
+      create: builder.mutation<ApiResponseNotPaginate<T>, Partial<T>>({
         query: (body) => ({
           url: `${endpoint}`,
           method: 'POST',

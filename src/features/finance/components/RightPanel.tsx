@@ -2,8 +2,7 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 import { ChartPieDonutText } from './ChartPieDonutText';
 import { RightPanelHeader } from './RightPanelHeader';
 import { RightPanelCategoryList } from './RightPanelCategoryList';
-import { AddIncome } from './AddIncome';
-import { AddExpense } from './AddExpense';
+import { AddExpense, AddIncome } from '@/features/transition';
 
 export const RightPanel = () => (
   <div className="p-6 lg:py-6 flex items-center justify-center dark:bg-card bg-white w-full 2xl:min-h-screen rounded-3xl lg:rounded-none">
