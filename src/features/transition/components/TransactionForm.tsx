@@ -7,11 +7,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
 import { BanknoteArrowUp, Calendar, CheckCircle, PiggyBank } from "lucide-react"
-import { CategoryCombobox } from "./CategoryCombobox"
 import BaseInput from "@/components/common/BaseInput"
 import useIncomeExpense from "../hooks/useIncomeExpense"
+import { CategoryCombobox } from "@/features/category"
+import { useGetAllWalletNoPagination } from "@/features/wallet/hooks"
 
 export const TransactionForm = ({ type }:  { type: string }) => {
+    const { data } = useGetAllWalletNoPagination();
+    console.log('data', data)
     const {
         register,
         handleSubmit,
@@ -134,8 +137,8 @@ export const TransactionForm = ({ type }:  { type: string }) => {
             <div className="w-full max-w-md grid gap-3" >
                 <Label htmlFor={`${type}-amount`}>Category</Label>
                 <CategoryCombobox
-                    value={watch('account_id')?.toString()}
-                    onChange={(val) => setValue('category_id', parseInt(val))}
+                    value={watch('category_id')}
+                    onChange={(val) => setValue('category_id', Number(val))}
                  />
                 {errors.category_id && (
                     <span className="text-red-500 text-sm">{errors.category_id.message}</span>
@@ -158,78 +161,36 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                             className="grid grid-cols-2 gap-3"
                             onValueChange={(val) => setValue('account_id', parseInt(val))}
                             >
-                                <FieldLabel htmlFor="kubernetes-r2h">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                        <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                                </Field>
-                                </FieldLabel>
-                                <FieldLabel htmlFor="kubernetes-r2h">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                        <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                                </Field>
-                                </FieldLabel>
-                                <FieldLabel htmlFor="kubernetes-r2h">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                        <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                                </Field>
-                                </FieldLabel>
-                                <FieldLabel htmlFor="kubernetes-r2h">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                        <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                                </Field>
-                                </FieldLabel>
-                                <FieldLabel htmlFor="hel-r2h">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                        <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="ello" id="hel-r2h" />
-                                </Field>
-                                </FieldLabel>
-                                <FieldLabel htmlFor="vm-z4k">
-                                <Field orientation="horizontal">
-                                    <FieldContent>
-                                    <FieldTitle>
-                                            <PiggyBank className=" size-4 " />
-                                            <h1>K Bank</h1>
-                                        </FieldTitle>
-                                        <FieldTitle>459.00 THB</FieldTitle>
-                                    </FieldContent>
-                                    <RadioGroupItem value="vm" id="vm-z4k" />
-                                </Field>
-                                </FieldLabel>
+                                {data?.data ? 
+                                    data?.data.map((account) => (
+                                        <FieldLabel key={account.id} htmlFor={account.id.toString()}>
+                                            <Field orientation="horizontal">
+                                                <FieldContent>
+                                                    <FieldTitle>
+                                                        <PiggyBank className=" size-4 " />
+                                                        <h1>{account.name}</h1>
+                                                    </FieldTitle>
+                                                    <FieldTitle>{account.amount+ ' ' + account.currency_code}</FieldTitle>
+                                                </FieldContent>
+                                                <RadioGroupItem value={account.id.toString()} id={account.id.toString()} />
+                                            </Field>
+                                        </FieldLabel>
+                                    ))
+                                 : (
+                                    <FieldLabel htmlFor="no-data">
+                                        <Field orientation="horizontal">
+                                            <FieldContent>
+                                                <FieldTitle>
+                                                    <PiggyBank className=" size-4 " />
+                                                    <h1>No Account</h1>
+                                                </FieldTitle>
+                                                <FieldTitle>0.00 </FieldTitle>
+                                            </FieldContent>
+                                            <RadioGroupItem value="no-data" id="no-data" />
+                                        </Field>
+                                    </FieldLabel>
+                                )}
+                                
                             </RadioGroup>
                         </FieldSet>
                     </FieldGroup>

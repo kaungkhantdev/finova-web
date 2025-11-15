@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
-import { useCreatePostMutation } from '../services/transitionsApi';
+import { useCreateTransactionMutation } from '../services/transitionsApi';
 
 const schema = z.object({
     transaction_type_id: z.number(),
@@ -14,7 +14,7 @@ const schema = z.object({
 });
 
 const useIncomeExpense = () => {
-    const [create, { isLoading, isError, error }] = useCreatePostMutation();
+    const [create, { isLoading, isError, error }] = useCreateTransactionMutation();
     
     const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),

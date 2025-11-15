@@ -1,5 +1,4 @@
 export const API_ENDPOINTS = {
-  // Auth endpoints
   AUTH: {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
@@ -10,8 +9,22 @@ export const API_ENDPOINTS = {
     VERIFY_OTP: '/auth/verify-otp',
   },
   
-  // User endpoints
   USERS: {
     PROFILE: '/users/profile',
   },
+
+  CATEGORY: {
+    ENDPOINT: '/categories',
+    GET_ALL_NO_PAGINATION: '/all'
+  },
+
+  TRANSACTION: {
+    ENDPOINT: '/transactions',
+    GET_ALL_NO_PAGINATION: '/all'
+  },
+
+  WALLET: {
+    ENDPOINT: '/accounts',
+    GET_ALL_NO_PAGINATION: '/all'
+  }
 } as const;

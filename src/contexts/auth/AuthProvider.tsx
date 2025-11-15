@@ -28,6 +28,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     } catch (error) {
       console.error('Failed to initialize user:', error);
+      dispatch(userActions.clearUser());
     } finally {
       setIsInitialized(true);
     }

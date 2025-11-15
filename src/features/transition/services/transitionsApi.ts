@@ -1,6 +1,13 @@
-import { createCrudApi } from "@/services/api/createCrudApi"
+import { baseApi } from "@/services/api/baseApi"
+import type { ApiResponseNotPaginate } from "@/types"
+import { API_ENDPOINTS } from "@/utils/constants"
 
 export interface Transaction {
+  amount: string,
+  name: string,
+  description?: string | undefined,
+}
+export interface TransactionRequest {
     transaction_type_id: string | number,
     amount: string,
     account_id: string | number,
@@ -9,48 +16,18 @@ export interface Transaction {
     description?: string | undefined,
 }
 
-export const transitionsApi = createCrudApi<Transaction>({
-  tag: 'Transactions',
-  endpoint: 'transactions',
-
-  // ✅ Custom logic (pagination, search, expand, etc.)
-  customEndpoints: (builder) => ({
-    getAll: builder.query<Transaction[], { limit?: number; userId?: number }>({
-      query: (params) => {
-        const search = new URLSearchParams()
-        if (params?.limit) search.append('_limit', params.limit.toString())
-        if (params?.userId) search.append('userId', params.userId.toString())
-
-        return `transactions?${search.toString()}`
-      },
-      providesTags: ['Transactions'],
-    }),
-
-    getOne: builder.query<Transaction & { comments: unknown[] }, number>({
-      // Example of fetching with related comments
-      async queryFn(id, _queryApi, _extraOptions, fetchWithBQ) {
-        const postResult = await fetchWithBQ(`posts/${id}`)
-        if (postResult.error) return { error: postResult.error }
-
-        const commentsResult = await fetchWithBQ(`posts/${id}/comments`)
-        if (commentsResult.error) return { error: commentsResult.error }
-
-        return {
-          data: {
-            ...postResult.data,
-            comments: commentsResult.data,
-          },
-        }
-      },
-      providesTags: (result, error, id) => [{ type: 'Transaction', id }],
-    }),
-  }),
+export const transitionsApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    create: builder.mutation<ApiResponseNotPaginate<Transaction>, TransactionRequest>({
+      query: (payload) => ({
+        url: API_ENDPOINTS.TRANSACTION.ENDPOINT,
+        method: 'POST',
+        body: payload,
+      })
+    })
+  })
 })
 
 export const {
-  useGetAllQuery: useGetPostsQuery,
-  useGetOneQuery: useGetPostQuery,
-  useCreateMutation: useCreatePostMutation,
-  useUpdateMutation: useUpdatePostMutation,
-  useDeleteMutation: useDeletePostMutation,
+  useCreateMutation: useCreateTransactionMutation,
 } = transitionsApi

@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Check, ChevronsUpDown } from "lucide-react"
 
@@ -18,37 +16,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import useGetAllCategoryNoPagination from "../hooks/useGetAllCategoryNoPagination"
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-]
 
 export function CategoryCombobox({
   value, 
   onChange
 }: {
-  value?: string,
-  onChange: (value: string) => void
+  value?: string | number,
+  onChange: (value: string | number) => void
 }) {
+  const { data } = useGetAllCategoryNoPagination()
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -61,7 +39,7 @@ export function CategoryCombobox({
           className="min:w-[390px] justify-between h-11"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
+            ? data?.data.find((category) => category.id === value)?.name
             : "Select category..."}
           <ChevronsUpDown className="opacity-50" />
         </Button>
@@ -70,22 +48,26 @@ export function CategoryCombobox({
         <Command>
           <CommandInput placeholder="Search category..." className="h-9" />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>No category found.</CommandEmpty>
             <CommandGroup>
-              {frameworks.map((framework) => (
+              {data?.data.map((category) => (
                 <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue === value ? "" : currentValue)
+                  key={category.id}
+                  value={`${category.id} ${category.name}`}
+                  // onSelect={(currentValue) => {
+                  //   onChange(currentValue === value ? "" : currentValue)
+                  //   setOpen(false)
+                  // }}
+                  onSelect={() => {
+                    onChange(category.id)
                     setOpen(false)
                   }}
                 >
-                  {framework.label}
+                  {category.name}
                   <Check
                     className={cn(
                       "ml-auto",
-                      value === framework.value ? "opacity-100" : "opacity-0"
+                      value === category.id ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>
