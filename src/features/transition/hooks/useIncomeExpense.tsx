@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
 import { useCreateTransactionMutation } from '../services/transitionsApi';
+import { useEffect } from 'react';
 
 const schema = z.object({
     transaction_type_id: z.number(),
@@ -13,15 +14,22 @@ const schema = z.object({
     description: z.string().optional(),
 });
 
-const useIncomeExpense = () => {
+const useIncomeExpense = ({ transactionType }: { transactionType: string }) => {
     const [create, { isLoading, isError, error }] = useCreateTransactionMutation();
     
     const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 
+    useEffect(() => {
+        // Assuming 1 = income, 2 = expense (adjust based on your app logic)
+        const typeId = transactionType === 'income' ? 1 : 2;
+        setValue('transaction_type_id', typeId);
+    }, [transactionType, setValue]);
+
     const onSubmit = async (data: z.infer<typeof schema>) => {
         try {
+            console.log('data', data);
             const payload = data;
             const result = await create(payload).unwrap();
  
@@ -47,7 +55,7 @@ const useIncomeExpense = () => {
         isError, 
         error,
         watch,
-        setValue
+        setValue,
     };
 }
 

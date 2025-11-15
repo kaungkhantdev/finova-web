@@ -1,10 +1,16 @@
+// import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 export const RightPanelHeader = () => (
     <div className="items-center pb-0">
-          <div className="mb-6 flex items-center justify-center">
+          <div className="mb-6 flex items-center justify-center max-h-6">
               <div className="py-1 px-4 rounded-full flex items-center justify-center bg-black dark:bg-sky-900">
                   <p className="text-sm text-white">K Bank *** 234</p>
               </div>
+                {/* <DotLottieReact
+                    src="/funny.lottie"
+                    loop
+                    autoplay
+                    /> */}
           </div>
   
           <div className="grid grid-cols-3 gap-4 mb-6">

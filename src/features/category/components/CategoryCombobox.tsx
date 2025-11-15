@@ -21,10 +21,10 @@ import useGetAllCategoryNoPagination from "../hooks/useGetAllCategoryNoPaginatio
 
 export function CategoryCombobox({
   value, 
-  onChange
+  onChange,
 }: {
   value?: string | number,
-  onChange: (value: string | number) => void
+  onChange: (value: string | number) => void,
 }) {
   const { data } = useGetAllCategoryNoPagination()
   const [open, setOpen] = React.useState(false)

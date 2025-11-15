@@ -6,33 +6,52 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
-import { BanknoteArrowUp, Calendar, CheckCircle, PiggyBank } from "lucide-react"
+import { BanknoteArrowUp, CheckCircle, PiggyBank, RotateCw } from "lucide-react"
 import BaseInput from "@/components/common/BaseInput"
 import useIncomeExpense from "../hooks/useIncomeExpense"
 import { CategoryCombobox } from "@/features/category"
 import { useGetAllWalletNoPagination } from "@/features/wallet/hooks"
+import { useMemo } from "react"
 
-export const TransactionForm = ({ type }:  { type: string }) => {
-    const { data } = useGetAllWalletNoPagination();
-    console.log('data', data)
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        onSubmit,
-        watch,
-        setValue,
-        // isLoading,
-    } = useIncomeExpense();
+export const TransactionForm = ({ transactionType }: { transactionType: string }) => {
+  const { data } = useGetAllWalletNoPagination();
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    isLoading,
+  } = useIncomeExpense({ transactionType });
 
-    const preview = {
-        transaction_type_id: watch("transaction_type_id"),
-        amount: watch("amount"),
-        account_id: watch("account_id"),
-        category_id: watch("category_id"),
-        name: watch("name"),
-        description: watch("description"),
-    }
+  const amount = watch("amount");
+  const accountId = watch("account_id");
+  const categoryId = watch("category_id");
+  const name = watch("name");
+  const description = watch("description");
+
+  const preview = useMemo(
+    () => ({
+      amount,
+      account_id: Number(accountId),
+      category_id: Number(categoryId),
+      name,
+      description,
+    }),
+    [amount, accountId, categoryId, name, description]
+  );
+
+  const previewData = useMemo(() => {
+    const walletList = data?.data ?? [];
+    const wallet = walletList.find((w) => w.id === preview.account_id);
+
+    return {
+      account_name: wallet?.name || "",
+      currency: wallet?.currency_code || "",
+      balance: wallet?.amount || 0,
+    };
+  }, [data, preview.account_id]);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-6 gap-y-6">
@@ -51,7 +70,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                                 <BanknoteArrowUp className="w-4 h-4" />
                                 </div>
                                 <h2 className="text-sm font-medium text-gray-600 mb-1">
-                                    K Bank - {preview.transaction_type_id}
+                                    { previewData.account_name ? previewData.account_name : 'Your Selected Bank'}
                                 </h2>
                             </div>
                         </div>
@@ -61,7 +80,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                     {/* Amount */}
                     <div className="mb-6">
                         <h1 className="text-2xl font-medium text-gray-900 text-wrap break-all">
-                        {preview.amount?.length ? preview.amount : '0.0'}
+                            { preview.amount ? preview.amount : "0.00" } <span className="text-sm">{ previewData.currency }</span>
                         </h1>
                     </div>
                     
@@ -69,11 +88,11 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                     <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                             <p className="text-gray-500 mb-1">Datetime</p>
-                            <p className="text-gray-900 font-medium">Sep 10, 9:11 AM</p>
+                            <p className="text-gray-900 font-medium">{new Date().toDateString()}</p>
                         </div>
                         <div>
                             <p className="text-gray-500 mb-1">From</p>
-                            <p className="text-gray-900 font-medium">K Bank Accounting</p>
+                            <p className="text-gray-900 font-medium">{ previewData.account_name ? previewData.account_name : 'Your Selected Bank'}</p>
                         </div>
                     </div>
                 </div>
@@ -86,16 +105,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                         <CheckCircle className="text-green-500 mt-0.5 w-4 h-4" />
                         <div>
                             <p className="text-gray-900 mb-1 text-sm text-wrap break-all">{preview.name?.length ? preview.name : 'Your title'}</p>
-                            <p className="text-xs text-gray-500">Sep 10, 2024, 9:11 AM</p>
-                        </div>
-                        </div>
-                        
-                        {/* Payment started */}
-                        <div className="flex items-start gap-3">
-                        <Calendar className="text-gray-400 mt-0.5 w-4 h-4" />
-                        <div>
-                            <p className="text-gray-900 mb-1 text-sm">Transfer start</p>
-                            <p className="text-xs text-gray-500">Sep 10, 2024, 9:11 AM</p>
+                            <p className="text-xs text-gray-500">{new Date().toDateString()}</p>
                         </div>
                         </div>
                     </div>
@@ -135,7 +145,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
 
             {/* Categories */}
             <div className="w-full max-w-md grid gap-3" >
-                <Label htmlFor={`${type}-amount`}>Category</Label>
+                <Label htmlFor={`${transactionType}-amount`}>Category</Label>
                 <CategoryCombobox
                     value={watch('category_id')}
                     onChange={(val) => setValue('category_id', Number(val))}
@@ -157,7 +167,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                             Select your one of the bank.
                         </FieldDescription>
                         <RadioGroup 
-                            defaultValue="kubernetes" 
+                            defaultValue="1"
                             className="grid grid-cols-2 gap-3"
                             onValueChange={(val) => setValue('account_id', parseInt(val))}
                             >
@@ -197,9 +207,9 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                 </div>
 
                 <div className="grid gap-3 mt-4">
-                    <Label htmlFor={`${type}-description`}>Notes</Label>
+                    <Label htmlFor={`${transactionType}-description`}>Notes</Label>
                     <Textarea 
-                        id={`${type}-description`}
+                        id={`${transactionType}-description`}
                         className="max-h-40"
                         placeholder="Write your note."
                         {...register('description')}
@@ -210,8 +220,16 @@ export const TransactionForm = ({ type }:  { type: string }) => {
         </div>
         
         <div className="justify-end flex gap-3 w-full col-span-2">
-            <Button type="submit" size={'lg'} className="rounded-full">
-                Confirm
+            <Button disabled={isLoading} type="submit" size={'lg'} className="rounded-full">
+                {isLoading ? (
+                  <>
+                    <RotateCw className="h-4 animate-spin" />
+                    Loading
+                  </>
+                ) : (
+                  "Confirm"
+                )
+              }
             </Button>
             <DialogClose asChild>
                 <Button type="button" variant={'outline'} size={'lg'} className="rounded-full">
