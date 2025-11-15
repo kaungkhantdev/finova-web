@@ -16,9 +16,20 @@ export const TransactionForm = ({ type }:  { type: string }) => {
         register,
         handleSubmit,
         formState: { errors },
-        // onSubmit,
+        onSubmit,
+        watch,
+        setValue,
         // isLoading,
     } = useIncomeExpense();
+
+    const preview = {
+        transaction_type_id: watch("transaction_type_id"),
+        amount: watch("amount"),
+        account_id: watch("account_id"),
+        category_id: watch("category_id"),
+        name: watch("name"),
+        description: watch("description"),
+    }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-6 gap-y-6">
@@ -37,7 +48,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                                 <BanknoteArrowUp className="w-4 h-4" />
                                 </div>
                                 <h2 className="text-sm font-medium text-gray-600 mb-1">
-                                    K Bank
+                                    K Bank - {preview.transaction_type_id}
                                 </h2>
                             </div>
                         </div>
@@ -46,8 +57,8 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                     
                     {/* Amount */}
                     <div className="mb-6">
-                        <h1 className="text-2xl font-medium text-gray-900">
-                        + $43,450.50
+                        <h1 className="text-2xl font-medium text-gray-900 text-wrap break-all">
+                        {preview.amount?.length ? preview.amount : '0.0'}
                         </h1>
                     </div>
                     
@@ -71,7 +82,7 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                         <div className="flex items-start gap-3">
                         <CheckCircle className="text-green-500 mt-0.5 w-4 h-4" />
                         <div>
-                            <p className="text-gray-900 mb-1 text-sm">Adding income will succeeded at</p>
+                            <p className="text-gray-900 mb-1 text-sm text-wrap break-all">{preview.name?.length ? preview.name : 'Your title'}</p>
                             <p className="text-xs text-gray-500">Sep 10, 2024, 9:11 AM</p>
                         </div>
                         </div>
@@ -91,150 +102,163 @@ export const TransactionForm = ({ type }:  { type: string }) => {
                 {/* Notes */}
                 <div className="p-6">
                 <h3 className="text-sm font-medium text-gray-600 mb-2">Notes</h3>
-                <p className="text-gray-900">Invoice #7702077</p>
+                <p className="text-gray-900 text-wrap break-all">{ preview.description ?? "Invoice #7702077"}</p>
                 </div>
             </div>
         </div>
       </div>
 
-      <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-2 gap-3 w-full">
-            <BaseInput
-              id="title"
-              register={register}
-              errors={errors}
-              label="Title"
-              type="text"
-              required
-              placeholder="Enter your Title" />
-        
-            <BaseInput
-              id="amount"
-              register={register}
-              errors={errors}
-              label="Amount"
-              type="number"
-              required
-              placeholder="Enter your amount" />
-        </div>
-
-        {/* Categories */}
-        <div className="w-full max-w-md grid gap-3" >
-            <Label htmlFor={`${type}-amount`}>Category</Label>
-            <CategoryCombobox />
-        </div>
-
-        <ScrollArea className="sm:h-72">
-            {/* Wallets */}
-            <div className="w-full max-w-md">
-                <FieldGroup>
-                    <FieldSet>
-                    <FieldLabel htmlFor="compute-environment-p8w">
-                        Banks
-                    </FieldLabel>
-                    <FieldDescription>
-                        Select your one of the bank.
-                    </FieldDescription>
-                    <RadioGroup defaultValue="kubernetes" className="grid grid-cols-2 gap-3">
-                            <FieldLabel htmlFor="kubernetes-r2h">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                    <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                            </Field>
-                            </FieldLabel>
-                            <FieldLabel htmlFor="kubernetes-r2h">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                    <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                            </Field>
-                            </FieldLabel>
-                            <FieldLabel htmlFor="kubernetes-r2h">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                    <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                            </Field>
-                            </FieldLabel>
-                            <FieldLabel htmlFor="kubernetes-r2h">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                    <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
-                            </Field>
-                            </FieldLabel>
-                            <FieldLabel htmlFor="hel-r2h">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                    <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="ello" id="hel-r2h" />
-                            </Field>
-                            </FieldLabel>
-                            <FieldLabel htmlFor="vm-z4k">
-                            <Field orientation="horizontal">
-                                <FieldContent>
-                                   <FieldTitle>
-                                        <PiggyBank className=" size-4 " />
-                                        <h1>K Bank</h1>
-                                    </FieldTitle>
-                                    <FieldTitle>459.00 THB</FieldTitle>
-                                </FieldContent>
-                                <RadioGroupItem value="vm" id="vm-z4k" />
-                            </Field>
-                            </FieldLabel>
-                        </RadioGroup>
-                    </FieldSet>
-                </FieldGroup>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-2 gap-3 w-full">
+                <BaseInput
+                id="name"
+                register={register}
+                errors={errors}
+                label="Title"
+                type="text"
+                required
+                placeholder="Enter your Title" />
+            
+                <BaseInput
+                id="amount"
+                register={register}
+                errors={errors}
+                label="Amount"
+                type="number"
+                required
+                placeholder="Enter your amount" />
             </div>
 
-            <div className="grid gap-3 mt-4">
-                <Label htmlFor={`${type}-description`}>Notes</Label>
-                <Textarea 
-                id={`${type}-description`}
-                className="max-h-40"
-                placeholder="Write your note."
-            />
+            {/* Categories */}
+            <div className="w-full max-w-md grid gap-3" >
+                <Label htmlFor={`${type}-amount`}>Category</Label>
+                <CategoryCombobox
+                    value={watch('account_id')?.toString()}
+                    onChange={(val) => setValue('category_id', parseInt(val))}
+                 />
+                {errors.category_id && (
+                    <span className="text-red-500 text-sm">{errors.category_id.message}</span>
+                )}
+            </div>
+
+            <ScrollArea className="sm:h-72">
+                {/* Wallets */}
+                <div className="w-full max-w-md">
+                    <FieldGroup>
+                        <FieldSet>
+                        <FieldLabel htmlFor="compute-environment-p8w">
+                            Banks
+                        </FieldLabel>
+                        <FieldDescription>
+                            Select your one of the bank.
+                        </FieldDescription>
+                        <RadioGroup 
+                            defaultValue="kubernetes" 
+                            className="grid grid-cols-2 gap-3"
+                            onValueChange={(val) => setValue('account_id', parseInt(val))}
+                            >
+                                <FieldLabel htmlFor="kubernetes-r2h">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                                </Field>
+                                </FieldLabel>
+                                <FieldLabel htmlFor="kubernetes-r2h">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                                </Field>
+                                </FieldLabel>
+                                <FieldLabel htmlFor="kubernetes-r2h">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                                </Field>
+                                </FieldLabel>
+                                <FieldLabel htmlFor="kubernetes-r2h">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="kubernetes" id="kubernetes-r2h" />
+                                </Field>
+                                </FieldLabel>
+                                <FieldLabel htmlFor="hel-r2h">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                        <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="ello" id="hel-r2h" />
+                                </Field>
+                                </FieldLabel>
+                                <FieldLabel htmlFor="vm-z4k">
+                                <Field orientation="horizontal">
+                                    <FieldContent>
+                                    <FieldTitle>
+                                            <PiggyBank className=" size-4 " />
+                                            <h1>K Bank</h1>
+                                        </FieldTitle>
+                                        <FieldTitle>459.00 THB</FieldTitle>
+                                    </FieldContent>
+                                    <RadioGroupItem value="vm" id="vm-z4k" />
+                                </Field>
+                                </FieldLabel>
+                            </RadioGroup>
+                        </FieldSet>
+                    </FieldGroup>
+                </div>
+
+                <div className="grid gap-3 mt-4">
+                    <Label htmlFor={`${type}-description`}>Notes</Label>
+                    <Textarea 
+                        id={`${type}-description`}
+                        className="max-h-40"
+                        placeholder="Write your note."
+                        {...register('description')}
+                    />
+            </div>
+            </ScrollArea>
+            
         </div>
-        </ScrollArea>
         
-      </div>
-      
-      <div className="justify-end flex gap-3 w-full col-span-2">
-        <Button onClick={() => handleSubmit} size={'lg'} className="rounded-full">
-          Confirm
-        </Button>
-        <DialogClose asChild>
-          <Button type="button" variant={'outline'} size={'lg'} className="rounded-full">
-            Cancel
-          </Button>
-        </DialogClose>
-      </div>
+        <div className="justify-end flex gap-3 w-full col-span-2">
+            <Button type="submit" size={'lg'} className="rounded-full">
+                Confirm
+            </Button>
+            <DialogClose asChild>
+                <Button type="button" variant={'outline'} size={'lg'} className="rounded-full">
+                    Cancel
+                </Button>
+            </DialogClose>
+        </div>
+      </form>
     </div>
   )
 }

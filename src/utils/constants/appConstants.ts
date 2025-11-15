@@ -15,6 +15,7 @@ export const ROUTES = {
   WALLET: '/wallet',
   ANALYSIS: '/analysis',
   TRANSACTION: '/transaction',
+  CATEGORY: '/category',
   HELP: '/help',
   REPORT: '/report',
   SETTING: '/setting',

@@ -7,6 +7,7 @@ import {
   ChartNoAxesColumn,
   ChartPie,
   Home,
+  LayoutList,
   Wallet,
 } from "lucide-react";
 import React from "react";
@@ -28,6 +29,7 @@ const routes = [
   { url: ROUTES.WALLET, name: "Wallet", icon: Wallet },
   { url: ROUTES.ANALYSIS, name: "Analytics", icon: ChartPie },
   { url: ROUTES.TRANSACTION, name: "Transaction", icon: ChartNoAxesColumn },
+  { url: ROUTES.CATEGORY, name: "Category", icon: LayoutList },
   { url: ROUTES.SETTING, name: "Settings", icon: Bolt },
 ];
 

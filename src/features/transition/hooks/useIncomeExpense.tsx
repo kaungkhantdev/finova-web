@@ -16,7 +16,7 @@ const schema = z.object({
 const useIncomeExpense = () => {
     const [create, { isLoading, isError, error }] = useCreatePostMutation();
     
-    const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof schema>>({
+    const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 
@@ -45,7 +45,9 @@ const useIncomeExpense = () => {
         onSubmit, 
         isLoading, 
         isError, 
-        error 
+        error,
+        watch,
+        setValue
     };
 }
 

@@ -42,9 +42,14 @@ const frameworks = [
   },
 ]
 
-export function CategoryCombobox() {
+export function CategoryCombobox({
+  value, 
+  onChange
+}: {
+  value?: string,
+  onChange: (value: string) => void
+}) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -72,7 +77,7 @@ export function CategoryCombobox() {
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    onChange(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
                 >
