@@ -75,3 +75,8 @@ export const FILE_UPLOAD = {
     ALL: ['image/*', 'application/pdf', '.doc', '.docx'],
   },
 } as const;
+
+export const TRANSACTION_TYPES = {
+  INCOME: { id: 1, name: 'income ' },
+  EXPENSE: { id: 2, name: 'expense' }
+}

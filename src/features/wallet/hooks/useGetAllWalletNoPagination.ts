@@ -3,7 +3,7 @@ import { useGetAllWalletNoPaginationQuery } from "../services/walletApi"
 const useGetAllWalletNoPagination = () => {
     const { data, isLoading, error, refetch } = useGetAllWalletNoPaginationQuery()
 
-    const onSubmit = async () => {
+    const onSubmitWallet = async () => {
         try {
             const result = await refetch().unwrap();
             console.log(result)
@@ -13,7 +13,7 @@ const useGetAllWalletNoPagination = () => {
         }
     }
 
-    return { onSubmit, data, isLoading, error}
+    return { onSubmitWallet, data, isLoading, error}
 }
 
 export default useGetAllWalletNoPagination;

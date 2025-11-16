@@ -6,15 +6,17 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Textarea } from "@/components/ui/textarea"
-import { BanknoteArrowUp, CheckCircle, PiggyBank, RotateCw } from "lucide-react"
+import { BanknoteArrowDown, BanknoteArrowUp, CheckCircle, PiggyBank, RotateCw } from "lucide-react"
 import BaseInput from "@/components/common/BaseInput"
 import useIncomeExpense from "../hooks/useIncomeExpense"
 import { CategoryCombobox } from "@/features/category"
 import { useGetAllWalletNoPagination } from "@/features/wallet/hooks"
 import { useMemo } from "react"
+import { TRANSACTION_TYPES } from "@/utils/constants"
+import { toast } from "sonner"
 
-export const TransactionForm = ({ transactionType }: { transactionType: string }) => {
-  const { data } = useGetAllWalletNoPagination();
+export const TransactionForm = ({ transactionType }: { transactionType: { id: number, name: string } }) => {
+  const { data, onSubmitWallet } = useGetAllWalletNoPagination();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,7 @@ export const TransactionForm = ({ transactionType }: { transactionType: string }
     watch,
     setValue,
     isLoading,
-  } = useIncomeExpense({ transactionType });
+  } = useIncomeExpense({ transactionTypeId: transactionType.id });
 
   const amount = watch("amount");
   const accountId = watch("account_id");
@@ -53,6 +55,40 @@ export const TransactionForm = ({ transactionType }: { transactionType: string }
     };
   }, [data, preview.account_id]);
 
+  // Handle validation in the component
+  const handleFormSubmit = async (formData: 
+    {   
+        amount: string; 
+        account_id: number; 
+        category_id: number; 
+        name: string; 
+        description?: string | undefined 
+    }) => {
+    const amountValue = parseFloat(formData.amount);
+    
+    if (transactionType.name === TRANSACTION_TYPES.EXPENSE.name) {
+      if (amountValue > Number(previewData.balance)) {
+        toast.error(`Insufficient balance. Available: ${previewData.balance} ${previewData.currency}`);
+        return;
+      }
+    }
+    
+    await onSubmit(formData);
+    onSubmitWallet();
+  };
+
+  // Check Insufficient Balance
+  const isInsufficientBalance = useMemo(() => {
+    if (!preview.account_id || !amount) return false;
+
+    const amountValue = parseFloat(amount) || 0;
+    return (
+        preview.account_id &&
+        transactionType.name === TRANSACTION_TYPES.EXPENSE.name &&
+        amountValue > Number(previewData.balance)
+    );
+  }, [amount, previewData.balance, transactionType.name, preview.account_id])
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-6 gap-y-6">
 
@@ -65,9 +101,12 @@ export const TransactionForm = ({ transactionType }: { transactionType: string }
                         <div>
                             <div className="flex items-center gap-2 mb-4">
                                 <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-green-100 dark:bg-green-900`}
+                                className={`
+                                    w-8 h-8 rounded-full flex items-center justify-center transition-all 
+                                    ${transactionType.name == TRANSACTION_TYPES.INCOME.name ? 'bg-green-100 dark:bg-green-900' : 'bg-red-100 dark:bg-red-900'}
+                                `}
                                 >
-                                <BanknoteArrowUp className="w-4 h-4" />
+                                { transactionType.name == TRANSACTION_TYPES.INCOME.name ? <BanknoteArrowUp className="w-4 h-4" /> : <BanknoteArrowDown className="w-4 h-4" />}
                                 </div>
                                 <h2 className="text-sm font-medium text-gray-600 mb-1">
                                     { previewData.account_name ? previewData.account_name : 'Your Selected Bank'}
@@ -121,8 +160,14 @@ export const TransactionForm = ({ transactionType }: { transactionType: string }
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        
         <div className="flex flex-col gap-6">
+            {isInsufficientBalance && (
+                <p className="text-red-500 text-sm mt-1 transition-all">
+                    Insufficient balance. Available: {previewData.balance} {previewData.currency}
+                </p>
+            )}
             <div className="grid grid-cols-2 gap-3 w-full">
                 <BaseInput
                 id="name"
