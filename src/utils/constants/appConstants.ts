@@ -77,6 +77,6 @@ export const FILE_UPLOAD = {
 } as const;
 
 export const TRANSACTION_TYPES = {
-  INCOME: { id: 1, name: 'income ' },
+  INCOME: { id: 1, name: 'income' },
   EXPENSE: { id: 2, name: 'expense' }
 }

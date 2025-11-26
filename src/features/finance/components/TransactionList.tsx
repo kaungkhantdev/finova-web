@@ -1,112 +1,140 @@
-import { BanknoteArrowDown, BanknoteArrowUp } from 'lucide-react';
+import Loading from '@/components/common/Loading';
+import { useGetAllTransaction } from '@/features/transition';
+import { TRANSACTION_TYPES } from '@/utils/constants';
+import { BanknoteArrowDown, BanknoteArrowUp, Receipt, type LucideIcon } from 'lucide-react';
+
+interface Transaction {
+  id: string | number;
+  name: string;
+  transaction_type_name: string;
+  amount: number;
+}
+
+interface TransactionConfig {
+  icon: LucideIcon;
+  bgColor: string;
+  darkBgColor: string;
+  iconColor: string;
+  amountColor: string;
+  prefix: string;
+}
+
+type TransactionConfigMap = {
+  [key: string]: TransactionConfig;
+};
+
+const TRANSACTION_CONFIG: TransactionConfigMap = {
+  [TRANSACTION_TYPES.INCOME.name]: {
+    icon: BanknoteArrowUp,
+    bgColor: 'bg-green-100',
+    darkBgColor: 'dark:bg-green-900',
+    iconColor: 'text-green-600',
+    amountColor: 'text-green-500',
+    prefix: '+'
+  },
+  [TRANSACTION_TYPES.EXPENSE.name]: {
+    icon: BanknoteArrowDown,
+    bgColor: 'bg-red-100',
+    darkBgColor: 'dark:bg-red-900',
+    iconColor: 'text-red-600',
+    amountColor: 'text-red-500',
+    prefix: '-'
+  }
+};
+
+interface TransactionIconProps {
+  type: string;
+}
+
+function TransactionIcon({ type }: TransactionIconProps) {
+  const config = TRANSACTION_CONFIG[type];
+  const Icon = config?.icon || Receipt;
+  
+  return (
+    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${config?.bgColor || 'bg-gray-100'} ${config?.darkBgColor || 'dark:bg-gray-800'}`}>
+      <Icon className={`w-4 h-4 ${config?.iconColor || 'text-gray-600'}`} />
+    </div>
+  );
+}
+
+interface TransactionItemProps {
+  transaction: Transaction;
+}
+
+function TransactionItem({ transaction }: TransactionItemProps) {
+  const type = transaction.transaction_type_name.toLowerCase();
+  const config = TRANSACTION_CONFIG[type];
+  
+  return (
+    <div className="bg-white dark:bg-card rounded-2xl p-2 flex items-center justify-between">
+      {/* Left Section - Icon and Info */}
+      <div className="flex items-center gap-3 flex-1 ml-1">
+        <TransactionIcon type={type} />
+        
+        {/* Name and Type */}
+        <div className="flex-1">
+          <h3 className="text-[13px]">{transaction.name}</h3>
+          <div className="flex items-center gap-1">
+            <p className="text-[11px] text-gray-500 capitalize">{type}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Section - Amount */}
+      <div className="px-3">
+        <p className={config?.amountColor || 'text-gray-900'}>
+          {config?.prefix || ''}{transaction.amount}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function EmptyState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-16 px-4">
+      <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6">
+        <Receipt className="w-12 h-12 text-gray-400" />
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        No transactions yet
+      </h3>
+      <p className="text-gray-500 dark:text-gray-400 text-center max-w-sm">
+        Your transaction history will appear here once you start recording your income and expenses.
+      </p>
+    </div>
+  );
+}
+
+function ErrorState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-16 px-4">
+      <div className="w-24 h-24 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-6">
+        <Receipt className="w-12 h-12 text-red-600" />
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+        Failed to load transactions
+      </h3>
+      <p className="text-gray-500 dark:text-gray-400 text-center max-w-sm">
+        We couldn't load your transactions. Please try again later.
+      </p>
+    </div>
+  );
+}
 
 export function TransactionList() {
-  const transactions = [
-    {
-      id: 1,
-      name: 'Henrik Jansen',
-      type: 'Income',
-      amount: '+$428.00',
-      isPositive: true,
-      avatar: '👨‍💼',
-      bgColor: 'bg-amber-100'
-    },
-    {
-      id: 2,
-      name: 'Multiplex',
-      type: 'Expense',
-      amount: '-$124.55',
-      isPositive: false,
-      avatar: '🎬',
-      bgColor: 'bg-black'
-    },
-    {
-      id: 3,
-      name: 'Eva Novak',
-      type: 'Income',
-      amount: '+$5,710.20',
-      isPositive: true,
-      avatar: '👩‍🦱',
-      bgColor: 'bg-pink-100'
-    },
-    {
-      id: 4,
-      name: 'Binance',
-      type: 'Income',
-      amount: '+$1,714.29',
-      isPositive: true,
-      avatar: '₿',
-      bgColor: 'bg-black'
-    },
-    {
-      id: 5,
-      name: 'Matteo Ricci',
-      type: 'Income',
-      amount: '+$536.00',
-      isPositive: true,
-      avatar: '👨‍🦱',
-      bgColor: 'bg-red-100'
-    },
-    {
-      id: 6,
-      name: 'Nike',
-      type: 'Expense',
-      amount: '-$328.96',
-      isPositive: false,
-      avatar: '👟',
-      bgColor: 'bg-black'
-    }
-  ];
+  const { data, isLoading, error } = useGetAllTransaction();
+  const transactions = data?.data as Transaction[] | undefined;
+
+  if (isLoading) return <Loading />;
+  if (error) return <ErrorState />;
+  if (!transactions || transactions.length === 0) return <EmptyState />;
 
   return (
     <div className="w-full">
       <div className="space-y-2">
         {transactions.map((transaction) => (
-          <div
-            key={transaction.id}
-            className="bg-white dark:bg-card rounded-2xl p-2 flex items-center justify-between"
-          >
-            {/* Left Section - Avatar and Info */}
-            <div className="flex items-center gap-3 flex-1 ml-1">
-              {/* Avatar */}
-              {/* <Avatar className="rounded-full">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar> */}
-              {
-              transaction.isPositive ? (
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-green-100 dark:bg-green-900`}
-                >
-                  <BanknoteArrowUp className="w-4 h-4" />
-                </div>) : (
-                  <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all bg-red-100 dark:bg-red-900`}
-                >
-                  <BanknoteArrowDown className="w-4 h-4" />
-                </div>)
-              }
-
-              {/* Name and Type */}
-              <div className="flex-1">
-                <h3 className=" text-[13px]">{transaction.name}</h3>
-                <div className="flex items-center gap-1">
-                  <p className="text-[11px] text-gray-500">{transaction.type}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Section - Amount */}
-            <div className='px-3'>
-              <p
-                className={` ${
-                  transaction.isPositive ? 'text-green-500' : 'text-red-500'
-                }`}
-              >
-                {transaction.amount}
-              </p>
-            </div>
-          </div>
+          <TransactionItem key={transaction.id} transaction={transaction} />
         ))}
       </div>
     </div>

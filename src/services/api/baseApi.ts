@@ -6,7 +6,8 @@ export const baseApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: [
     'User',
-    'Category', 
+    'Category',
+    'Transaction',
   ],
   endpoints: () => ({}),
   // Keep unused data for 60 seconds

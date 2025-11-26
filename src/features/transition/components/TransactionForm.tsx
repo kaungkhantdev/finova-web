@@ -264,7 +264,7 @@ export const TransactionForm = ({ transactionType }: { transactionType: { id: nu
             
         </div>
         
-        <div className="justify-end flex gap-3 w-full col-span-2">
+        <div className="justify-end flex gap-3 w-full col-span-2 mt-4">
             <Button disabled={isLoading} type="submit" size={'lg'} className="rounded-full">
                 {isLoading ? (
                   <>

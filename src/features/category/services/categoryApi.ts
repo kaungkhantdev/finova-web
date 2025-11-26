@@ -15,6 +15,7 @@ export const categoryApi = baseApi.injectEndpoints({
                 url: API_ENDPOINTS.CATEGORY.ENDPOINT + API_ENDPOINTS.CATEGORY.GET_ALL_NO_PAGINATION,
                 method: 'GET'
             }),
+            providesTags: ['Category'],
         }),
     })
 })

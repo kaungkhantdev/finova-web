@@ -1,11 +1,22 @@
 import { baseApi } from "@/services/api/baseApi"
-import type { ApiResponseNotPaginate } from "@/types"
+import type { ApiResponse, ApiResponseNotPaginate } from "@/types"
+import type { ApiPaginationQueryParams } from "@/types/apiPagination.types"
 import { API_ENDPOINTS } from "@/utils/constants"
 
 export interface Transaction {
-  amount: string,
+  id: number | string,
   name: string,
-  description?: string | undefined,
+  description: string,
+  amount: string,
+  user_id: number | string,
+  category_id: number | string,
+  category_name:string,
+  account_id: number | string,
+  account_name: string,
+  transaction_type_id: number | string,
+  transaction_type_name: string,
+  created_at: string,
+  updated_at: string
 }
 export interface TransactionRequest {
     transaction_type_id: string | number,
@@ -23,11 +34,20 @@ export const transitionsApi = baseApi.injectEndpoints({
         url: API_ENDPOINTS.TRANSACTION.ENDPOINT,
         method: 'POST',
         body: payload,
-      })
-    })
+      }),
+      invalidatesTags: ['Transaction'],
+    }),
+    getAll: builder.query<ApiResponse<Transaction>, ApiPaginationQueryParams>({
+      query: (queryParams) => ({
+        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}?page=${queryParams.page}&size=${queryParams.size}`,
+        method: 'GET',
+      }),
+      providesTags: ['Transaction'],
+    }),
   })
 })
 
 export const {
+  useGetAllQuery: useGetAllTransactionsQuery,
   useCreateMutation: useCreateTransactionMutation,
 } = transitionsApi
