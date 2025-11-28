@@ -1,31 +1,7 @@
 import { baseApi } from "@/services/api/baseApi";
 import type { ApiResponseMessage, ApiResponseNotPaginate } from "@/types";
 import { API_ENDPOINTS } from "@/utils/constants";
-
-interface LoginRequest {
-  email: string
-  password: string
-}
-
-interface ForgotPasswordRequest {
-  email: string
-}
-
-interface VerifyOtpRequest {
-  email: string
-  otp: string
-}
-
-interface ResetPasswordRequest {
-  reset_token: string
-  new_password: string
-}
-
-interface RegisterRequest {
-  email: string
-  password: string
-  name: string
-}
+import type { ForgotPasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, VerifyOtpRequest } from "../types/auth.type";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

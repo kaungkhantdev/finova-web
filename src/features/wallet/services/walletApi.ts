@@ -1,14 +1,7 @@
 import { baseApi } from "@/services/api/baseApi";
 import type { ApiResponseNotPaginate } from "@/types";
 import { API_ENDPOINTS } from "@/utils/constants";
-
-export interface Wallet {
-    id: string | number;
-    name: string;
-    description: string;
-    amount: string;
-    currency_code: string
-}
+import type { BalanceAndExchangeRate, Wallet } from "../types/wallet.type";
 
 export const walletApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -16,11 +9,19 @@ export const walletApi = baseApi.injectEndpoints({
             query: () => ({
                 url: API_ENDPOINTS.WALLET.ENDPOINT + API_ENDPOINTS.WALLET.GET_ALL_NO_PAGINATION,
                 method: 'GET'
+            }),
+            providesTags: ['Accounts']
+        }),
+        getBalanceAndExchangeRate: builder.query<ApiResponseNotPaginate<BalanceAndExchangeRate>, void>({
+            query: () => ({
+                url: API_ENDPOINTS.WALLET.ENDPOINT + API_ENDPOINTS.WALLET.BALANCE_EXCHANGE_RATE,
+                method: 'GET'
             })
         })
     })
 })
 
 export const {
+    useGetBalanceAndExchangeRateQuery,
     useGetAllWalletsNoPaginationQuery: useGetAllWalletNoPaginationQuery
 } = walletApi

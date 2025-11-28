@@ -25,6 +25,7 @@ export const API_ENDPOINTS = {
 
   WALLET: {
     ENDPOINT: '/accounts',
-    GET_ALL_NO_PAGINATION: '/all'
+    GET_ALL_NO_PAGINATION: '/all',
+    BALANCE_EXCHANGE_RATE: '/get-balance'
   }
 } as const;

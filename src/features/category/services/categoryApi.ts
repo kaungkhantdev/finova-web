@@ -1,12 +1,7 @@
 import { baseApi } from "@/services/api/baseApi";
 import type { ApiResponseNotPaginate } from "@/types";
 import { API_ENDPOINTS } from "@/utils/constants";
-
-export interface Category {
-    id: string | number;
-    name: string;
-    description: string;
-}
+import type { Category } from "../types/category.type";
 
 export const categoryApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({

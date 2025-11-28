@@ -8,6 +8,7 @@ export const baseApi = createApi({
     'User',
     'Category',
     'Transaction',
+    'Accounts'
   ],
   endpoints: () => ({}),
   // Keep unused data for 60 seconds

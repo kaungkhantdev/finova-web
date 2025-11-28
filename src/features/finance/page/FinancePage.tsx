@@ -1,5 +1,4 @@
-import { BalanceCard } from "../components/BalanceCard";
-import { ExchangeRateCards } from "../components/ExchangeRateCards";
+import BalanceExchangeRate from "../components/BalanceExchangeRate";
 import { GreetingHeader } from "../components/GreetingHeader";
 import { RateChart } from "../components/RateChart";
 import { RecentTransactions } from "../components/RecentTransactions";
@@ -17,8 +16,7 @@ const FinancePage = () => {
 
               {/* Balance & Exchange Rates */}
               <div className="md:col-span-2">
-                <BalanceCard />
-                <ExchangeRateCards />
+                <BalanceExchangeRate />
               </div>
 
               {/* Recent Transactions */}
