@@ -14,6 +14,7 @@ export type Transaction = {
   created_at: string,
   updated_at: string
 }
+
 export type TransactionRequest = {
     transaction_type_id: string | number,
     amount: string,
@@ -21,4 +22,34 @@ export type TransactionRequest = {
     category_id: string | number,
     name: string,
     description?: string | undefined,
+}
+
+export type AmountPercentageResponse = {
+    category_percentage: [
+        {
+            category_name: string,
+            transaction_count: number | string,
+            total_amount: number | string,
+            percent: number | string,
+        },
+        {
+            category_name: string,
+            transaction_count: number | string,
+            total_amount: number | string,
+            percent: number | string,
+        }
+    ],
+    daily_amount: {
+        daily_amount: number | string,
+        date: string
+    },
+    weekly_amount: {
+        weekly_amount: number | string,
+        week_start: string,
+        week_end: string,
+    },
+    monthly_amount: {
+        monthly_amount: string | number,
+        month: number | string,
+    }
 }

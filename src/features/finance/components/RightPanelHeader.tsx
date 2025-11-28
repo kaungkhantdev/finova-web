@@ -1,6 +1,12 @@
 // import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-export const RightPanelHeader = () => (
+export const RightPanelHeader = (
+    {
+
+    }
+    :
+    {}
+) => (
     <div className="items-center pb-0">
           <div className="mb-6 flex items-center justify-center max-h-6">
               <div className="py-1 px-4 rounded-full flex items-center justify-center bg-black dark:bg-sky-900">
@@ -27,5 +33,5 @@ export const RightPanelHeader = () => (
                   <p className="font-semibold text-gray-900 dark:text-white">$6,638.72</p>
               </div>
           </div>
-      </div>
+    </div>
 );

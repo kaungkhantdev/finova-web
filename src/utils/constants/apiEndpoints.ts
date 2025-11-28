@@ -20,7 +20,8 @@ export const API_ENDPOINTS = {
 
   TRANSACTION: {
     ENDPOINT: '/transactions',
-    GET_ALL_NO_PAGINATION: '/all'
+    GET_ALL_NO_PAGINATION: '/all',
+    AMOUNT_PERCENTAGE: '/amount-percentage'
   },
 
   WALLET: {
