@@ -8,7 +8,7 @@ export const API_ENDPOINTS = {
     RESET_PASSWORD: '/auth/reset-password',
     VERIFY_OTP: '/auth/verify-otp',
   },
-  
+
   USERS: {
     PROFILE: '/users/profile',
   },
@@ -21,7 +21,9 @@ export const API_ENDPOINTS = {
   TRANSACTION: {
     ENDPOINT: '/transactions',
     GET_ALL_NO_PAGINATION: '/all',
-    AMOUNT_PERCENTAGE: '/amount-percentage'
+    AMOUNT_PERCENTAGE: '/amount-percentage',
+    MONTHLY_COMPARISON: '/monthly-comparison',
+    GET_BY_DAYS: '/get-by-days'
   },
 
   WALLET: {

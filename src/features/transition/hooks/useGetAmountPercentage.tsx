@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useGetAmountPercentageQuery } from "../services/transitionsApi"
+import { TRANSACTION_TYPES } from "@/utils/constants";
 
 const useGetAmountPercentage = (initialTypeId: string) => {
     const [transactionTypeId, setTransactionTypeId] = useState(initialTypeId);
     const { data, error, isLoading, isSuccess, refetch } = useGetAmountPercentageQuery({ transactionTypeId });
-
     const onSubmit = async () => {
         try {
             await refetch();
@@ -13,8 +13,9 @@ const useGetAmountPercentage = (initialTypeId: string) => {
         }
     }
 
-    const changeTransactionType = async (tTypeId: string) => {
-        setTransactionTypeId(tTypeId);
+    const changeTransactionType = async (type: string) => {
+        const typeId = type == TRANSACTION_TYPES.INCOME.name ? TRANSACTION_TYPES.INCOME.id : TRANSACTION_TYPES.EXPENSE.id;
+        setTransactionTypeId(typeId.toString());
     }
     
     return { changeTransactionType, onSubmit, data, error, isLoading, isSuccess, refetch };

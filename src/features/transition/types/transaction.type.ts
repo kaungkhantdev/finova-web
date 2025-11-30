@@ -53,3 +53,21 @@ export type AmountPercentageResponse = {
         month: number | string,
     }
 }
+
+
+export type MonthlyComparisonResponse = {
+    current_income: string,
+    previous_income: string,
+    income_change_percent: number,
+    income_difference: string,
+    current_expense: string,
+    previous_expense: string,
+    expense_change_percent: number,
+    expense_difference: string
+}
+
+export type GetByDaysResponse = {
+    date: string,
+    expense: number,
+    income: number
+}

@@ -2,7 +2,7 @@ import { baseApi } from "@/services/api/baseApi"
 import type { ApiResponse, ApiResponseNotPaginate } from "@/types"
 import type { ApiPaginationQueryParams } from "@/types/apiPagination.types"
 import { API_ENDPOINTS } from "@/utils/constants"
-import type { AmountPercentageResponse, Transaction, TransactionRequest } from "../types/transaction.type"
+import type { AmountPercentageResponse, GetByDaysResponse, MonthlyComparisonResponse, Transaction, TransactionRequest } from "../types/transaction.type"
 
 export const transitionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,8 +22,20 @@ export const transitionsApi = baseApi.injectEndpoints({
       providesTags: ['Transaction'],
     }),
     getAmountPercentage: builder.query<ApiResponseNotPaginate<AmountPercentageResponse>, { transactionTypeId: string }>({
-      query: (transactionTypeId) => ({
-        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT} + ${API_ENDPOINTS.TRANSACTION.AMOUNT_PERCENTAGE}?transaction_type_id=${transactionTypeId}`,
+      query: ({ transactionTypeId }) => ({
+        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}${API_ENDPOINTS.TRANSACTION.AMOUNT_PERCENTAGE}?transaction_type_id=${transactionTypeId}`,
+        method: 'GET',
+      }),
+    }),
+    getMonthlyComparison: builder.query<ApiResponseNotPaginate<MonthlyComparisonResponse>, void>({
+      query: () => ({
+        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}${API_ENDPOINTS.TRANSACTION.MONTHLY_COMPARISON}`,
+        method: 'GET',
+      }),
+    }),
+    getByDays: builder.query<ApiResponseNotPaginate<GetByDaysResponse[]>, {days: string}>({
+      query: ({days}) => ({
+        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}${API_ENDPOINTS.TRANSACTION.GET_BY_DAYS}?days=${days}`,
         method: 'GET',
       }),
     }),
@@ -31,6 +43,8 @@ export const transitionsApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useGetByDaysQuery,
+  useGetMonthlyComparisonQuery,
   useGetAmountPercentageQuery,
   useGetAllQuery: useGetAllTransactionsQuery,
   useCreateMutation: useCreateTransactionMutation,
