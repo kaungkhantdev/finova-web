@@ -23,7 +23,7 @@ export const BalanceCard = (
         <h2 className="text-4xl font-bold">
           {from_currency_symbol + ' ' + original_amount.toLocaleString()}
         </h2>
-        <div className="text-sm mt-2">{ from_currency_symbol + ' ' + formatted_original_amount}</div>
+        <p className="text-sm mt-2">{ from_currency_symbol + ' ' + formatted_original_amount}</p>
       </div>
 
       <div className="py-4 grid grid-cols-3">

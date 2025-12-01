@@ -1,4 +1,5 @@
 import { TrendingUp, TrendingDown, WalletIcon } from 'lucide-react';
+import { EditWallet } from './EditWallet';
 
 interface WalletProps {
   wallet: {
@@ -14,8 +15,8 @@ interface WalletProps {
 export const WalletCard = ({ wallet }: WalletProps) => {
   return (
     <div className="rounded-3xl bg-white p-2 w-full dark:bg-card">
-      <div className="rounded-2xl bg-yellow-200 dark:bg-sky-800 p-6">
-        <div className="">
+      <div className="rounded-2xl bg-yellow-200 dark:bg-sky-800 p-6 grid md:grid-cols-6 gap-2">
+        <div className="col-span-5">
           <div className="flex gap-2">
             <WalletIcon className="w-4 h-4" strokeWidth={2} />
             <p className="text-sm font-medium mb-2">{wallet.name}</p>
@@ -26,16 +27,13 @@ export const WalletCard = ({ wallet }: WalletProps) => {
           </h2>
 
           <div className="text-sm mt-2">
-            <span
-              className={`${
-                wallet.change >= 0 ? 'text-green-600' : 'text-red-600'
-              } text-sm font-medium`}
-            >
-              {wallet.change >= 0 ? '+' : ''}
-              {wallet.change}%
-            </span>{' '}
-            {wallet.change >= 0 ? 'increase' : 'decrease'} from last month
+            <span className='text-sm font-medium'>
+              Total - $ 50 M
+            </span>
           </div>
+        </div>
+        <div>
+          <EditWallet />
         </div>
       </div>
 
@@ -48,7 +46,7 @@ export const WalletCard = ({ wallet }: WalletProps) => {
           <h3 className="font-bold mb-1">
             ${wallet.income.toLocaleString()}
           </h3>
-          <span className="text-xs">Income October 2025</span>
+          <span className="text-xs">Income</span>
         </div>
 
         <div className="border-r"></div>
@@ -58,10 +56,10 @@ export const WalletCard = ({ wallet }: WalletProps) => {
           <div className="flex items-center text-sm rounded-full w-max mb-2">
             <TrendingDown className="w-4 h-4 text-red-600" />
           </div>
-          <h3 className="font-bold text-gray-900 mb-1">
+          <h3 className="font-bold mb-1">
             ${wallet.expense.toLocaleString()}
           </h3>
-          <span className="text-xs">Expenses October 2025</span>
+          <span className="text-xs">Expenses</span>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { WalletCard } from "../components/WalletCard";
 import { WalletHeader } from "../components/WalletHeader";
 
@@ -17,6 +18,9 @@ const Wallet = () => {
           {wallets.map((wallet) => (
             <WalletCard key={wallet.id} wallet={wallet} />
           ))}
+        </div>
+        <div className="flex items-center justify-center">
+          <Button size={'lg'} className="mt-6 rounded-full">Load More</Button>
         </div>
       </div>
     </div>
