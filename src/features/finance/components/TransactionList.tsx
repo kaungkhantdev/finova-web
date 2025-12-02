@@ -62,7 +62,7 @@ interface TransactionItemProps {
 }
 
 function TransactionItem({ transaction }: TransactionItemProps) {
-  const type = transaction.transaction_type_name.toLowerCase();
+  const type = transaction.transaction_type_name?.toLowerCase();
   const config = TRANSACTION_CONFIG[type];
   
   return (

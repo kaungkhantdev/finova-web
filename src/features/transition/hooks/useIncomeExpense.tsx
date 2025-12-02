@@ -13,9 +13,9 @@ const schema = z.object({
 });
 
 const useIncomeExpense = ({ transactionTypeId }: { transactionTypeId: number }) => {
-    const [create, { isLoading, isError, error, reset }] = useCreateTransactionMutation();
+    const [create, { isLoading, isError, error }] = useCreateTransactionMutation();
     
-    const { register, watch, handleSubmit, formState: { errors }, setValue } = useForm<z.infer<typeof schema>>({
+    const { register, watch, handleSubmit, formState: { errors }, setValue, reset } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 
@@ -42,12 +42,6 @@ const useIncomeExpense = ({ transactionTypeId }: { transactionTypeId: number }) 
             toast.error(errorMessage);
         } finally {
             reset();
-      
-            // Also manually clear using setValue as backup
-            setValue('name', '');
-            setValue('amount', '');
-            setValue('category_id', 0);
-            setValue('description', '');
         }
     };
 

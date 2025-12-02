@@ -1,5 +1,5 @@
 import type { ApiPaginationQueryParams } from "@/types/apiPagination.types";
-import { useGetAllTransactionsQuery } from "../services/transitionsApi";
+import { useGetAllTransactionQuery } from "../services/transitionsApi";
 import { useMemo, useState } from "react";
 
 const useGetAllTransaction = (queryParams?: ApiPaginationQueryParams ) => {
@@ -11,7 +11,7 @@ const useGetAllTransaction = (queryParams?: ApiPaginationQueryParams ) => {
         size,
     }), [page, size]);
     console.log("apiQueryParams", apiQueryParams);
-    const { data, error, isLoading, refetch } = useGetAllTransactionsQuery(apiQueryParams);
+    const { data, error, isLoading, refetch } = useGetAllTransactionQuery(apiQueryParams);
 
     const onSubmit = async () => {
         const result = await refetch();

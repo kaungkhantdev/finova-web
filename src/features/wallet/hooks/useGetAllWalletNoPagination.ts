@@ -1,7 +1,7 @@
-import { useGetAllWalletNoPaginationQuery } from "../services/walletApi"
+import { useGetAllWalletsNoPaginationQuery } from "../services/walletApi"
 
 const useGetAllWalletNoPagination = () => {
-    const { data, isLoading, error, refetch } = useGetAllWalletNoPaginationQuery()
+    const { data, isLoading, error, refetch } = useGetAllWalletsNoPaginationQuery()
 
     const onSubmitWallet = async () => {
         try {

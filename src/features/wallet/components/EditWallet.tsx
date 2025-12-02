@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
-import useCreateWallet from "../hooks/useCreateWallet";
 import BaseInput from "@/components/common/BaseInput";
-import { Edit3 } from "lucide-react";
+import { Edit3, RotateCw } from "lucide-react";
+import useEditWallet from "../hooks/useEditWallet";
 
-export const EditWallet = () => {
-  const { register } = useCreateWallet();
+export const EditWallet = ({ accountId, name, description }: { accountId: number, name: string, description: string }) => {
+  const { register, handleSubmit, onSubmit, errors, isLoading } = useEditWallet(accountId);
 
   return (
     <Dialog>
@@ -20,27 +20,52 @@ export const EditWallet = () => {
           <DialogTitle>Edit Wallet</DialogTitle>
         </DialogHeader>
         <div className={cn("flex flex-col gap-6")}>
-            <form className="w-full">
+            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
                 <BaseInput
                   id="name"
                   label="Wallet Name"
                   type="text"
+                  defaultValue={name}
                   placeholder="Enter wallet name"
                   register={register}
+                  errors={errors}
                 />
                 <BaseInput 
                   id="description"
                   label="Description"
                   type="text"
+                  defaultValue={description}
                   placeholder="Enter wallet description"
                   register={register}
+                  errors={errors}
                 />
               </div>
-              <Button type="submit" size={'lg'} className="mt-4 w-full rounded-full">Submit</Button>
+              <div className="flex items-center justify-end gap-2 mt-4">
+                <DialogClose asChild>
+                  <Button type="submit" size={'lg'} className="rounded-full">
+                    {isLoading ? (
+                      <>
+                        <RotateCw className="h-4 animate-spin" />
+                        Loading
+                      </>
+                      ) : (
+                        "Confirm"
+                      )
+                    }
+                  </Button>
+                </DialogClose>
+                <DialogClose asChild>
+                    <Button type="button" variant={'outline'} size={'lg'} className="rounded-full">
+                        Cancel
+                    </Button>
+                </DialogClose>
+              </div>
             </form>
         </div>
       </DialogContent>
     </Dialog>
   )
 }
+        
+        

@@ -14,7 +14,7 @@ export const transitionsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Transaction'],
     }),
-    getAll: builder.query<ApiResponse<Transaction>, ApiPaginationQueryParams>({
+    getAllTransaction: builder.query<ApiResponse<Transaction>, ApiPaginationQueryParams>({
       query: (queryParams) => ({
         url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}?page=${queryParams.page}&size=${queryParams.size}`,
         method: 'GET',
@@ -46,6 +46,6 @@ export const {
   useGetByDaysQuery,
   useGetMonthlyComparisonQuery,
   useGetAmountPercentageQuery,
-  useGetAllQuery: useGetAllTransactionsQuery,
+  useGetAllTransactionQuery,
   useCreateMutation: useCreateTransactionMutation,
 } = transitionsApi

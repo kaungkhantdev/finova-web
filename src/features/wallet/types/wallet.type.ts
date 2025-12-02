@@ -7,6 +7,23 @@ export type Wallet = {
     currency_code: string
 }
 
+export type WalletRequest = {
+    name: string;
+    description?: string;
+}
+
+export type WalletWithIncomeExpense = {
+    account_id: number,
+    account_name: string,
+    description: string,
+    amount: string,
+    currency: string,
+    currency_code: string,
+    currency_symbol: string,
+    total_income: number,
+    total_expense: number
+}
+
 export type BalanceAndExchangeRate = {
     from_currency: string,
     from_currency_symbol: string,

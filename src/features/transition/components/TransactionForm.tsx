@@ -168,24 +168,25 @@ export const TransactionForm = ({ transactionType }: { transactionType: { id: nu
                     Insufficient balance. Available: {previewData.balance} {previewData.currency}
                 </p>
             )}
+            
             <div className="grid grid-cols-2 gap-3 w-full">
                 <BaseInput
-                id="name"
-                register={register}
-                errors={errors}
-                label="Title"
-                type="text"
-                required
-                placeholder="Enter your Title" />
+                    id="name"
+                    register={register}
+                    errors={errors}
+                    label="Title"
+                    type="text"
+                    required
+                    placeholder="Enter your Title" />
             
                 <BaseInput
-                id="amount"
-                register={register}
-                errors={errors}
-                label="Amount"
-                type="number"
-                required
-                placeholder="Enter your amount" />
+                    id="amount"
+                    register={register}
+                    errors={errors}
+                    label="Amount"
+                    type="number"
+                    required
+                    placeholder="Enter your amount" />
             </div>
 
             {/* Categories */}
@@ -209,10 +210,13 @@ export const TransactionForm = ({ transactionType }: { transactionType: { id: nu
                             Banks
                         </FieldLabel>
                         <FieldDescription>
-                            Select your one of the bank.
+                            Select your one of the bank. <br />
+                            {errors.account_id && (
+                                <span className="text-red-500 text-sm">{errors.account_id.message}</span>
+                            )}
                         </FieldDescription>
                         <RadioGroup 
-                            defaultValue="1"
+                            value={accountId !== undefined ? accountId.toString() : ""}
                             className="grid grid-cols-2 gap-3"
                             onValueChange={(val) => setValue('account_id', parseInt(val))}
                             >
