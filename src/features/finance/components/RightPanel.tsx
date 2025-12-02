@@ -35,7 +35,9 @@ export const RightPanel = () => {
             </div>
             <h3 className="text-xl font-bold">{user?.currency_symbol + ' ' + monthlyComparisonData?.data?.income_difference}</h3>
             <span className="text-sm text-gray-500">Monthly income - month diff</span>
-            <AddIncome />
+            <div className="mt-4">
+                <AddIncome/>
+            </div>
           </div>
 
           {/* Expense */}
@@ -46,7 +48,9 @@ export const RightPanel = () => {
             </div>
             <h3 className="text-xl font-bold">{user?.currency_symbol + ' ' + monthlyComparisonData?.data?.expense_difference}</h3>
             <span className="text-sm text-gray-500">Monthly expense - month diff</span>
-            <AddExpense />
+            <div className="mt-4">
+                <AddExpense/>
+            </div>
           </div>
         </div>
       </div>

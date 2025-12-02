@@ -58,7 +58,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { PAGINATION } from "@/utils/constants"
-import type { PaginationMeta } from "@/types"
+import type { PaginationMeta } from "@/types/apiPagination.types"
 import LoadingIcon from "../common/LoadingIcon"
 
 
@@ -158,7 +158,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-    pageCount: metadata ? metadata.last_page : 0,
+    pageCount: metadata ? metadata.total_pages : 0,
   })
 
   function handleDragEnd(event: DragEndEvent) {
@@ -173,8 +173,8 @@ export function ReusableDataTable<T extends { id: number | string }>({
   }
 
   return (
-      <div className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6">
-        <div className="overflow-hidden rounded-lg border border-primary/10">
+      <div className="relative flex flex-col gap-4 overflow-auto">
+        <div className="overflow-hidden rounded-lg">
           <DndContext
             collisionDetection={closestCenter}
             modifiers={[restrictToVerticalAxis]}
@@ -256,7 +256,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
                   setSize(Number(value))
                 }}
               >
-                <SelectTrigger className="w-20" id="rows-per-page">
+                <SelectTrigger className="w-20 rounded-full" id="rows-per-page">
                   <SelectValue
                     placeholder={table.getState().pagination.pageSize}
                   />
@@ -277,7 +277,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
               <Button
                 variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
+                className="hidden h-9 w-9 p-0 lg:flex rounded-full"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -286,7 +286,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
               </Button>
               <Button
                 variant="outline"
-                className="size-8"
+                className="size-9 rounded-full"
                 size="icon"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
@@ -296,7 +296,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
               </Button>
               <Button
                 variant="outline"
-                className="size-8"
+                className="size-9 rounded-full"
                 size="icon"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
@@ -306,7 +306,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
               </Button>
               <Button
                 variant="outline"
-                className="hidden size-8 lg:flex"
+                className="hidden size-9 lg:flex rounded-full"
                 size="icon"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}

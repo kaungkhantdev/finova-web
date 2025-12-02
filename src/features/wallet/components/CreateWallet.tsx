@@ -11,7 +11,7 @@ export const CreateWallet = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg" className="rounded-full mt-4">
+        <Button size={'lg'} className="rounded-full mt-4">
             Create
         </Button>
       </DialogTrigger>

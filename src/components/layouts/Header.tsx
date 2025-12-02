@@ -6,7 +6,6 @@ import {
   Bolt,
   ChartNoAxesColumn,
   ChartPie,
-  Home,
   LayoutList,
   Wallet,
 } from "lucide-react";
@@ -25,9 +24,8 @@ interface NavItemProps {
 }
 
 const routes = [
-  { url: ROUTES.HOME, name: "Overview", icon: Home },
+  { url: ROUTES.HOME, name: "Overview", icon: ChartPie },
   { url: ROUTES.WALLET, name: "Wallet", icon: Wallet },
-  { url: ROUTES.ANALYSIS, name: "Analytics", icon: ChartPie },
   { url: ROUTES.TRANSACTION, name: "Transaction", icon: ChartNoAxesColumn },
   { url: ROUTES.CATEGORY, name: "Category", icon: LayoutList },
   { url: ROUTES.SETTING, name: "Settings", icon: Bolt },

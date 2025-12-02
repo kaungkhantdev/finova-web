@@ -8,7 +8,6 @@ import { AuthRoutes } from "./authRoutes";
 const MainLayout = lazy(() => import('@/components/layouts/MainLayout'));
 const FinancePage = lazy(() => import('@/features/finance/page/FinancePage'));
 const WalletPage = lazy(() => import('@/features/wallet/page/WalletPage'));
-const AnalysisPage = lazy(() => import('@/features/analysis/page/AnalysisPage'));
 const TransitionPage = lazy(() => import('@/features/transition/page/TransitionPage'));
 const SettingPage = lazy(() => import('@/features/setting/page/SettingPage'));
 
@@ -64,10 +63,6 @@ const router = createBrowserRouter([
             {
               path: ROUTES.WALLET,
               Component: WalletPage,
-            },
-            {
-              path: ROUTES.ANALYSIS,
-              Component: AnalysisPage,
             },
             {
               path: ROUTES.TRANSACTION,

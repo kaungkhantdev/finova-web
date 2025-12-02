@@ -8,7 +8,7 @@ export const AddIncome = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="lg" className="rounded-full mt-4">
+        <Button size="lg" className="rounded-full w-auto">
             Add Income
         </Button>
       </DialogTrigger>
