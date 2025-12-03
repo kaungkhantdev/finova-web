@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { useRegisterMutation } from '../services/authApi';
 import { useLazyProfileQuery } from '@/features/user/services/usersApi';
-import useAuth from '@/contexts/auth/useAuth';
 import { useCreateWalletMutation } from '@/features/wallet/services/walletApi';
+import { useAuth } from './useAuth';
 
 const schema = z
   .object({

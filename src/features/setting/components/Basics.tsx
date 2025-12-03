@@ -2,8 +2,8 @@ import { useTheme } from "@/components/common/ThemeProvider"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useAuth } from "@/features/authentication"
 // import { Button } from "@/components/ui/button"
-import useAuth from "@/contexts/auth/useAuth"
 
 const Basics = () => {
   const { theme, setTheme } = useTheme()

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 import { useLoginMutation } from '../services/authApi';
 import { useLazyProfileQuery } from '@/features/user/services/usersApi';
-import useAuth from '@/contexts/auth/useAuth';
+import { useAuth } from './useAuth';
 
 const schema = z.object({
     email: emailSchema,

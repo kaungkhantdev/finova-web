@@ -1,6 +1,6 @@
 import { ChartSpline, BellDot } from 'lucide-react';
 import { Greeting } from '@/utils/helpers/greeting';
-import useAuth from '@/contexts/auth/useAuth';
+import { useAuth } from '@/features/authentication';
 
 export const GreetingHeader = () => {
   const { user } = useAuth();

@@ -1,8 +1,8 @@
 import Loading from '@/components/common/Loading';
-import useAuth from '@/contexts/auth/useAuth';
 import { ROUTES } from '@/utils/constants';
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
+import { useAuth } from '@/features/authentication';
 
 export const AuthRoutes: React.FC = () => {
   const { isAuthenticated, isInitialized } = useAuth();

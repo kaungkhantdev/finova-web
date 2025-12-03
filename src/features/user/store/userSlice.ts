@@ -3,6 +3,7 @@ import type { User } from '../type';
 
 type UserState = {
     user: User | null;
+    isInitialized: boolean;
 };
 
 // Load user from localStorage on initialization
@@ -18,6 +19,7 @@ const loadUserFromStorage = (): User | null => {
 
 const initialState: UserState = {
     user: loadUserFromStorage(), // Load from localStorage
+    isInitialized: false,
 };
 
 const userSlice = createSlice({
@@ -26,6 +28,7 @@ const userSlice = createSlice({
     reducers: {
         setUser(state, action) {
             state.user = action.payload;
+            state.isInitialized = true;
             // Persist to localStorage
             try {
                 localStorage.setItem('user', JSON.stringify(action.payload));
@@ -35,6 +38,7 @@ const userSlice = createSlice({
         },
         clearUser(state) {
             state.user = null;
+            state.isInitialized = true;
             // Clear from localStorage
             try {
                 localStorage.removeItem('user');

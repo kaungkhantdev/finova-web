@@ -4,8 +4,8 @@ import { RightPanelHeader } from './RightPanelHeader';
 import { AddExpense, AddIncome, useGetAmountPercentage } from '@/features/transition';
 import { TRANSACTION_TYPES } from '@/utils/constants';
 import Loading from '@/components/common/Loading';
-import useAuth from '@/contexts/auth/useAuth';
 import useGetMonthlyComparison from '@/features/transition/hooks/useGetMonthlyComparison';
+import { useAuth } from '@/features/authentication';
 
 export const RightPanel = () => {
   const { user } = useAuth();
