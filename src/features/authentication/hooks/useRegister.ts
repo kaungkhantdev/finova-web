@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { useRegisterMutation } from '../services/authApi';
 import { useLazyProfileQuery } from '@/features/user/services/usersApi';
 import useAuth from '@/contexts/auth/useAuth';
+import { useCreateWalletMutation } from '@/features/wallet/services/walletApi';
 
 const schema = z
   .object({
@@ -14,6 +15,8 @@ const schema = z
     name: z.string().min(3, 'Name must be at least 3 characters long'),
     password: z.string().min(6, 'Password must be at least 6 characters long'),
     c_password: z.string().min(6, 'Confirm password must be at least 6 characters long'),
+    currency_id: z.number('Please select a currency'),
+    wallet_name: z.string().min(3, 'Wallet name must be at least 3 characters long'),
   })
   .refine((data) => data.password === data.c_password, {
     path: ['c_password'],
@@ -22,9 +25,10 @@ const schema = z
 
 const useRegister = () => {
     const [registerFn, { isLoading, isError, error }] = useRegisterMutation();
+    const [ create ] = useCreateWalletMutation();
     const [triggerProfile] = useLazyProfileQuery();
     
-    const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof schema>>({
+    const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 
@@ -37,6 +41,7 @@ const useRegister = () => {
                 email: data.email,
                 password: data.password,
                 name: data.name,
+                currency_id: data.currency_id,
             };
             const result = await registerFn(credentials).unwrap();
  
@@ -47,6 +52,11 @@ const useRegister = () => {
                 // console.log('Fetched user profile:', user, profileResult);
                 if (user) {
                     setAuthenticatedUser(user);
+
+                    // create wallet
+                    await create({
+                        name: data.wallet_name,
+                    }).unwrap();
                 }
                 
                 toast.success('Register successful!');
@@ -69,7 +79,9 @@ const useRegister = () => {
         onSubmit, 
         isLoading, 
         isError, 
-        error 
+        error,
+        setValue,
+        watch
     };
 }
 

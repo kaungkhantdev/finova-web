@@ -2,13 +2,14 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/common/Logo"
-import { GoogleIcon } from "@/components/common/GoogleIcon"
+// import { GoogleIcon } from "@/components/common/GoogleIcon"
 import { Link } from "react-router"
 import BaseInput from "@/components/common/BaseInput"
 import PasswordInput from "@/components/common/PasswordInput"
 import { ROUTES } from "@/utils/constants"
 import useRegister from "../hooks/useRegister"
 import { RotateCw } from "lucide-react"
+import { CurrencyCombobox } from "@/features/currency"
 
 export function RegisterForm({
   className,
@@ -20,6 +21,8 @@ export function RegisterForm({
     formState: { errors },
     onSubmit,
     isLoading,
+    setValue,
+    watch,
   } = useRegister();
   
   return (
@@ -75,6 +78,29 @@ export function RegisterForm({
               label="Confirm Password"
               required
               placeholder="Enter your password"/>
+            <BaseInput
+                id="wallet_name"
+                register={register}
+                errors={errors}
+                label="Wallet"
+                type="text"
+                required
+                placeholder="Wallet name" />
+            {/* Currency */}
+            <div className="w-full max-w-md grid gap-3" >
+                <label htmlFor="currency_id" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Currency
+                </label>
+                <CurrencyCombobox
+                    value={watch('currency_id')}
+                    onChange={(val) => setValue('currency_id', Number(val))}
+                  />
+                {errors.currency_id && (
+                    <span className="text-red-500 text-sm">{errors.currency_id.message}</span>
+                )}
+            </div>
+
+          
             <Button disabled={isLoading} type="submit" size={'lg'} className="w-full rounded-full">
               {isLoading ? (
                   <>
@@ -87,7 +113,7 @@ export function RegisterForm({
               }
             </Button>
           </div>
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+          {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background dark:bg-card text-muted-foreground relative z-10 px-2">
               Or
             </span>
@@ -97,7 +123,7 @@ export function RegisterForm({
               <GoogleIcon />
               Continue with Google
             </Button>
-          </div>
+          </div> */}
         </div>
       </form>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">

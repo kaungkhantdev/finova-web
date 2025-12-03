@@ -20,24 +20,18 @@ import { Bolt } from "lucide-react"
 import { Link } from "react-router"
 import { ROUTES } from "@/utils/constants"
 import useLogout from "@/features/authentication/hooks/useLogout"
+import useAuth from "@/contexts/auth/useAuth"
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+export function NavUser() {
   const { onSubmit } = useLogout()
+  const { user } = useAuth()
 
   return (
     <DropdownMenu>
         <DropdownMenuTrigger asChild>
             <button>
                 <Avatar className="h-8 w-8 rounded-full">
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage src={user?.avatar_url || 'https://github.com/shadcn.png'} alt={user?.name} />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
             </button>
@@ -51,13 +45,13 @@ export function NavUser({
             <DropdownMenuLabel className="font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-full">
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage src={user?.avatar_url || 'https://github.com/shadcn.png'} alt={user?.name} />
                     <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">{user.name}</span>
+                    <span className="truncate font-medium">{user?.name}</span>
                     <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
+                    {user?.email}
                     </span>
                 </div>
                 </div>
@@ -72,11 +66,9 @@ export function NavUser({
                 </Link>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-                <button onClick={() => onSubmit()} className="flex gap-2">
-                    <IconLogout />
-                    Log out
-                </button>
+            <DropdownMenuItem onSelect={() => onSubmit()}>
+                <IconLogout />
+                Log out
             </DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>

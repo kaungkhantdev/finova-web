@@ -5,10 +5,10 @@ import { toast } from 'sonner';
 import { useCreateTransactionMutation } from '../services/transitionsApi';
 
 const schema = z.object({
-    amount: z.string(),
-    account_id: z.number(),
-    category_id: z.number(),
-    name: z.string(),
+    amount: z.string('Please enter an amount'),
+    account_id: z.number('Please select an account'),
+    category_id: z.number('Please select a category'),
+    name: z.string('Please enter a name'),
     description: z.string().optional(),
 });
 

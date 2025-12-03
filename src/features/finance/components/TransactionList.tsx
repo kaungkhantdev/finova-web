@@ -1,7 +1,7 @@
 import Loading from '@/components/common/Loading';
 import { useGetAllTransaction } from '@/features/transition';
 import { TRANSACTION_TYPES } from '@/utils/constants';
-import { BanknoteArrowDown, BanknoteArrowUp, Receipt, type LucideIcon } from 'lucide-react';
+import { BanknoteArrowDown, BanknoteArrowUp, ChartArea, Receipt, type LucideIcon } from 'lucide-react';
 
 interface Transaction {
   id: string | number;
@@ -92,14 +92,14 @@ function TransactionItem({ transaction }: TransactionItemProps) {
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4">
-      <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6">
-        <Receipt className="w-12 h-12 text-gray-400" />
+    <div className="flex flex-col items-center justify-center py-26 px-4 bg-white dark:bg-card rounded-2xl">
+      <div className="flex items-center justify-center mb-6">
+        <ChartArea className="w-12 h-12 text-muted-foreground" strokeWidth={1} />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
         No transactions yet
       </h3>
-      <p className="text-gray-500 dark:text-gray-400 text-center max-w-sm">
+      <p className="text-gray-500 dark:text-gray-400 text-center max-w-sm text-sm">
         Your transaction history will appear here once you start recording your income and expenses.
       </p>
     </div>
@@ -108,11 +108,11 @@ function EmptyState() {
 
 function ErrorState() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4">
+    <div className="flex flex-col items-center justify-center py-26 px-4 bg-white dark:bg-card rounded-2xl">
       <div className="w-24 h-24 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mb-6">
         <Receipt className="w-12 h-12 text-red-600" />
       </div>
-      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
         Failed to load transactions
       </h3>
       <p className="text-gray-500 dark:text-gray-400 text-center max-w-sm">
@@ -121,6 +121,7 @@ function ErrorState() {
     </div>
   );
 }
+
 
 export function TransactionList() {
   const { data, isLoading, error } = useGetAllTransaction(true);

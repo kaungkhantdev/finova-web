@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/common/Logo"
 import { Link } from "react-router"
-import { GoogleIcon } from "@/components/common/GoogleIcon"
+// import { GoogleIcon } from "@/components/common/GoogleIcon"
 import PasswordInput from "@/components/common/PasswordInput"
 import BaseInput from "@/components/common/BaseInput"
 import useLogin from "../hooks/useLogin"
@@ -72,7 +72,7 @@ export function LoginForm({
               }
             </Button>
           </div>
-          <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+          {/* <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background dark:bg-card text-muted-foreground relative z-10 px-2">
               Or
             </span>
@@ -82,7 +82,7 @@ export function LoginForm({
               <GoogleIcon />
               Continue with Google
             </Button>
-          </div>
+          </div> */}
         </div>
       </form>
       <div className="text-center text-sm text-muted-foreground">

@@ -111,11 +111,7 @@ const Header: React.FC = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar> */}
-            <NavUser user={{
-              name: 'HILLO',
-              email: 'test@gmail.com',
-              avatar: 'https://github.com/shadcn.png'
-            }}/>
+            <NavUser />
           </div>
         </div>
       </div>

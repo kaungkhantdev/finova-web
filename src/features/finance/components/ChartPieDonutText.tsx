@@ -6,6 +6,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import type { AmountPercentageResponse } from "@/features/transition/types/transaction.type"
+import { PieChartIcon } from "lucide-react"
 
 export const description = "A donut chart with text"
 
@@ -47,10 +48,38 @@ const CATEGORIES = [
 
 interface ChartPieDonutTextProps {
   data?: AmountPercentageResponse
+  isLoading?: boolean
+  currency?: string
 }
 
-export function ChartPieDonutText({ data }: ChartPieDonutTextProps) {
-  if (!data?.category_percentage?.length) return null
+export function ChartPieDonutText({
+  data, 
+  isLoading = false,
+}: ChartPieDonutTextProps) {
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      </div>
+    )
+  }
+
+  if (!data?.category_percentage?.length) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] px-4">
+        <div className="flex items-center justify-center mb-4">
+          <PieChartIcon className="w-12 h-12 text-muted-foreground" strokeWidth={1} />
+        </div>
+        <h3 className="text-lg font-semibold mb-2">
+          No category data
+        </h3>
+        <p className="text-muted-foreground text-center max-w-sm text-sm">
+          Category breakdown will appear here once you have transactions.
+        </p>
+      </div>
+    )
+  }
+
 
   const getCategoryData = (categoryName: string) => {
     return data.category_percentage.find(

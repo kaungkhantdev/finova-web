@@ -3,6 +3,7 @@ import { userActions } from '@/features/user/store';
 import { useDispatch } from 'react-redux';
 import { ROUTES } from '@/utils/constants';
 import { useLogoutMutation } from '../services/authApi';
+import { baseApi } from '@/services/api/baseApi';
 
 const useLogout = () => {
     // Use navigate for redirection
@@ -13,6 +14,7 @@ const useLogout = () => {
     const onSubmit = async () => {
         console.log('logout')
         const result = await logout().unwrap();
+        dispatch(baseApi.util.resetApiState());
         
         if (result && result.success) {
             dispatch(userActions.clearUser());

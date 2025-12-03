@@ -26,10 +26,12 @@ export const RightPanelHeader = (
 ) => {
     const [transactionType, setTransactionType] = useState<typeof income | typeof expense>(income);
 
-    const onChangeTransactionType = (type: typeof income | typeof expense) => {
-        setTransactionType((type) => (type === income) ? expense : income);
+    const onChangeTransactionType = () => {
+        const newType = transactionType === income ? expense : income;
+        setTransactionType(newType);
+        
         if (handleChangeTransactionType) {
-            handleChangeTransactionType(type);
+            handleChangeTransactionType(newType);
         }
     };
 
@@ -38,7 +40,9 @@ export const RightPanelHeader = (
             <div className="mb-6 flex items-center justify-center max-h-6">
                 <div className="py-1 px-4 rounded-full flex items-center justify-center bg-black dark:bg-sky-900">
                     {/* <p className="text-sm text-white">K Bank *** 234</p> */}
-                    <p onClick={() => onChangeTransactionType(transactionType)} className="cursor-pointer text-sm text-white">{getCurrentMonth()} -- {transactionType}</p>
+                    <p onClick={onChangeTransactionType} className="cursor-pointer text-sm text-white">
+                        {getCurrentMonth()} -- {transactionType}
+                    </p>
                 </div>
                     {/* <DotLottieReact
                         src="/funny.lottie"

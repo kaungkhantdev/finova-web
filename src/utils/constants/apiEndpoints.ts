@@ -30,5 +30,10 @@ export const API_ENDPOINTS = {
     ENDPOINT: '/accounts',
     GET_ALL_NO_PAGINATION: '/all',
     BALANCE_EXCHANGE_RATE: '/get-balance'
+  },
+
+  CURRENCY: {
+    ENDPOINT: '/public/currencies',
+    GET_ALL_NO_PAGINATION: '/all'
   }
 } as const;

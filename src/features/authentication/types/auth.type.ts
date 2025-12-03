@@ -21,5 +21,6 @@ export type ResetPasswordRequest = {
 export type RegisterRequest = {
   email: string
   password: string
-  name: string
+  name: string,
+  currency_id: number,
 }
