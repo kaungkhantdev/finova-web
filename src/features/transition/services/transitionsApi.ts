@@ -14,11 +14,19 @@ export const transitionsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Transaction'],
     }),
-    getAllTransaction: builder.query<ApiResponse<Transaction>, ApiPaginationQueryParams>({
-      query: (queryParams) => ({
-        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}?page=${queryParams.page}&size=${queryParams.size}`,
-        method: 'GET',
-      }),
+    getAllTransaction: builder.query<ApiResponse<Transaction>, ApiPaginationQueryParams & { recent?: boolean }>({
+      query: (queryParams) => {
+        const { page, size, s, recent } = queryParams;
+    
+        const url = recent 
+          ? `${API_ENDPOINTS.TRANSACTION.ENDPOINT}?page=${page}&size=${size}`
+          : `${API_ENDPOINTS.TRANSACTION.ENDPOINT}?page=${page}&size=${size}&s=${s}`;
+    
+        return {
+          url,
+          method: 'GET',
+        };
+      },
       providesTags: ['Transaction'],
     }),
     getAmountPercentage: builder.query<ApiResponseNotPaginate<AmountPercentageResponse>, { transactionTypeId: string }>({
@@ -39,10 +47,18 @@ export const transitionsApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
     }),
+    deleteTransaction: builder.mutation<ApiResponseNotPaginate<Transaction>, { id: number }>({
+      query: ({ id }) => ({
+        url: `${API_ENDPOINTS.TRANSACTION.ENDPOINT}/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Transaction'],
+    }),
   })
 })
 
 export const {
+  useDeleteTransactionMutation,
   useGetByDaysQuery,
   useGetMonthlyComparisonQuery,
   useGetAmountPercentageQuery,

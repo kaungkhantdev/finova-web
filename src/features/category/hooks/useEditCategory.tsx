@@ -2,30 +2,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
-import { useUpdateWalletMutation } from "../services/walletApi";
+import { useUpdateCategoryMutation } from "../services/categoryApi";
 
 const schema = z.object({
   name: z.string().optional(),
   description: z.string().optional(),
 });
 
-const useEditWallet = (accountId: number) => {
-    const [ update, { isLoading }] = useUpdateWalletMutation();
+const useEditCategory = (id: string) => {
+    const [ update, { isLoading }] = useUpdateCategoryMutation();
     const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     })
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     try {
-        console.log('data', data);
-        const payload = { ...data, accountId };
-        const result = await update(payload).unwrap();
-        console.log('result', result)
+        const payload = { ...data };
+        const result = await update({id, body: payload}).unwrap();
 
         if (result?.success) {
-            toast.success('Wallet updated successful!');
+            toast.success('Category updated successful!');
         } else {
-            toast.error(result?.message || 'Wallet updating failed');
+            toast.error(result?.message || 'Category updating failed');
         }
     } catch (error) {
         console.log(error)
@@ -37,4 +35,4 @@ const useEditWallet = (accountId: number) => {
   return { onSubmit, register, handleSubmit, errors, isLoading };
 }
 
-export default useEditWallet;
+export default useEditCategory;

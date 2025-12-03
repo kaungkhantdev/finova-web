@@ -1,7 +1,7 @@
-import { useGetAllTransactionQuery } from "../services/transitionsApi";
 import { useMemo, useState } from "react";
+import { useGetAllCategoryQuery } from "../services/categoryApi";
 
-const useGetAllTransaction = (recent: boolean = false, defaultSize?: number, search?: string) => {
+const useGetAllCategory = (defaultSize?: number, search?: string) => {
     const [size, setSize] = useState(defaultSize || 6);
 
     const [pagination, setPagination] = useState({
@@ -14,10 +14,7 @@ const useGetAllTransaction = (recent: boolean = false, defaultSize?: number, sea
         size: pagination.pageSize,
         s: search,
     }), [pagination, search]);
-    const { data, error, isLoading, refetch } = useGetAllTransactionQuery({
-        ...apiQueryParams,
-        recent
-    });
+    const { data, error, isLoading, refetch } = useGetAllCategoryQuery(apiQueryParams);
 
     const onSubmit = async () => {
         const result = await refetch();
@@ -27,4 +24,4 @@ const useGetAllTransaction = (recent: boolean = false, defaultSize?: number, sea
     return { onSubmit, data, isLoading, error, pagination, setPagination, setSize };
 }
 
-export default useGetAllTransaction;
+export default useGetAllCategory;

@@ -4,3 +4,6 @@ export { default as TransactionTable } from './components/TransactionTable';
 
 // Hooks
 export * from './hooks';
+
+// Types
+export * from './types/transaction.type';

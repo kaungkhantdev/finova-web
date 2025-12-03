@@ -2,16 +2,18 @@ import { useTheme } from "@/components/common/ThemeProvider"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
+import useAuth from "@/contexts/auth/useAuth"
 
 const Basics = () => {
   const { theme, setTheme } = useTheme()
+  const { user } = useAuth()
 
   return (
     <div className="w-full p-6 rounded-3xl bg-white dark:bg-card">
         <div className="flex items-center justify-between pb-2 border-b border-gray-100 dark:border-gray-900">
             <h2 className="">Basics</h2>
-            <Button variant={'link'} className="rounded-full">Edit</Button>
+            {/* <Button variant={'link'} className="rounded-full">Edit</Button> */}
         </div>
         
         {/* Photo */}
@@ -34,7 +36,7 @@ const Basics = () => {
                 <span className="text-sm font-medium">Name</span>
             </div>
             <div className=" col-span-3 ">
-                <span className="text-sm">Sophie Chamberlain</span>
+                <span className="text-sm">{user?.name}</span>
             </div>
         </div>
 
@@ -44,19 +46,19 @@ const Basics = () => {
                 <span className="text-sm font-medium">Email Address</span>
             </div>
             <div className=" col-span-3  overflow-hidden">
-                <span className="text-sm text-wrap">hi@sophiehamberlain.com</span>
+                <span className="text-sm text-wrap">{user?.email}</span>
             </div>
         </div>
 
         {/* Password */}
-        <div className="grid grid-cols-5 gap-4 border-gray-100 dark:border-gray-900 w-full py-5">
+        {/* <div className="grid grid-cols-5 gap-4 border-gray-100 dark:border-gray-900 w-full py-5">
             <div className=" col-span-2">
                 <span className="text-sm font-medium">Password</span>
             </div>
             <div className=" col-span-3 overflow-hidden">
                 <Button variant={'outline'} className="rounded-full">Change your password</Button>
             </div>
-        </div>
+        </div> */}
         
         {/* Device Theme */}
         <div className="grid grid-cols-5 border-gray-100 dark:border-gray-900 w-full py-5">

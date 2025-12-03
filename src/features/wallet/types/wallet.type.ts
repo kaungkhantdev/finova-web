@@ -8,7 +8,7 @@ export type Wallet = {
 }
 
 export type WalletRequest = {
-    name: string;
+    name?: string;
     description?: string;
 }
 

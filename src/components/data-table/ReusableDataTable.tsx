@@ -245,7 +245,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </div>
           <div className="flex w-full items-center gap-8 lg:w-fit">
-            <div className="hidden items-center gap-2 lg:flex">
+            <div className="hidden items-center gap-2 md:flex">
               <Label htmlFor="rows-per-page" className="text-sm font-medium">
                 Rows per page
               </Label>
@@ -277,7 +277,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
             <div className="ml-auto flex items-center gap-2 lg:ml-0">
               <Button
                 variant="outline"
-                className="hidden h-9 w-9 p-0 lg:flex rounded-full"
+                className="hidden h-9 w-9 p-0 md:flex rounded-full"
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -306,7 +306,7 @@ export function ReusableDataTable<T extends { id: number | string }>({
               </Button>
               <Button
                 variant="outline"
-                className="hidden size-9 lg:flex rounded-full"
+                className="hidden size-9 md:flex rounded-full"
                 size="icon"
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}

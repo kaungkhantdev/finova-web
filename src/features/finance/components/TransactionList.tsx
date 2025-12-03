@@ -123,7 +123,7 @@ function ErrorState() {
 }
 
 export function TransactionList() {
-  const { data, isLoading, error } = useGetAllTransaction();
+  const { data, isLoading, error } = useGetAllTransaction(true);
   const transactions = data?.data as Transaction[] | undefined;
 
   if (isLoading) return <Loading />;

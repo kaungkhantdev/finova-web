@@ -6,12 +6,14 @@ import { changeHumanReadAbleDate } from "@/utils/helpers/date-formater"
 import type { Transaction } from "../types/transaction.type"
 import { useGetAllTransaction } from "../hooks"
 import Loading from "@/components/common/Loading"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoreVerticalIcon } from "lucide-react"
+import useDeleteTransaction from "../hooks/useDeleteTransaction"
 
 
-const TransactionTable = () => { 
-  const { data, pagination, setPagination, setSize, isLoading } = useGetAllTransaction(10)
+const TransactionTable = ({search}: {search: string}) => { 
+  const { data, pagination, setPagination, setSize, isLoading } = useGetAllTransaction(false, 10, search)
+  const { onSubmit } = useDeleteTransaction()
   const reqColumns: ColumnDef<Transaction>[] = [
       {
           accessorKey: "name",
@@ -57,7 +59,7 @@ const TransactionTable = () => {
       },
       {
         id: "actions",
-        cell: () => (
+        cell: ({row}) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -70,9 +72,7 @@ const TransactionTable = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
+          <DropdownMenuItem variant="destructive" onClick={() => onSubmit(Number(row.original.id))}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     ),

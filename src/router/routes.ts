@@ -9,6 +9,7 @@ const MainLayout = lazy(() => import('@/components/layouts/MainLayout'));
 const FinancePage = lazy(() => import('@/features/finance/page/FinancePage'));
 const WalletPage = lazy(() => import('@/features/wallet/page/WalletPage'));
 const TransitionPage = lazy(() => import('@/features/transition/page/TransitionPage'));
+const CategoryPage = lazy(() => import('@/features/category/page/CategoryPage'));
 const SettingPage = lazy(() => import('@/features/setting/page/SettingPage'));
 
 // authentication pages
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             {
               path: ROUTES.TRANSACTION,
               Component: TransitionPage,
+            },
+            {
+              path: ROUTES.CATEGORY,
+              Component: CategoryPage,
             },
             {
               path: ROUTES.SETTING,

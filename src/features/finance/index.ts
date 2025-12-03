@@ -6,5 +6,8 @@ export { RecentTransactions } from './components/RecentTransactions';
 export { RightPanel } from './components/RightPanel';
 export { TransactionList } from './components/TransactionList';
 
-// page
+// Page
 export { default as FinancePage } from './page/FinancePage';
+
+// Types
+export * from './types/finance.type';

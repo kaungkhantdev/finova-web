@@ -14,4 +14,5 @@ export interface PaginationMeta {
 export interface ApiPaginationQueryParams {
   page: number;
   size: number;
+  s?: string;
 }

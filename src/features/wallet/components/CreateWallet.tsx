@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import useCreateWallet from "../hooks/useCreateWallet";
 import BaseInput from "@/components/common/BaseInput";
@@ -18,6 +18,9 @@ export const CreateWallet = () => {
       <DialogContent className="sm:max-w-sm rounded-3xl">
         <DialogHeader className="pb-4">
           <DialogTitle>Create Wallet</DialogTitle>
+          <DialogDescription>
+            Create a new wallet.
+          </DialogDescription>
         </DialogHeader>
         <div className={cn("flex flex-col gap-6")}>
             <form className="w-full" onSubmit={handleSubmit(onSubmit)}>

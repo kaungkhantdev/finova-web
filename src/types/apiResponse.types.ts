@@ -15,8 +15,3 @@ export interface ApiResponseMessage {
 export interface ApiResponseNotPaginate<T> extends ApiResponseMessage {
     data: T;
 }
-
-export interface ApiQueryParams {
-  page: number;
-  size: number;
-}
