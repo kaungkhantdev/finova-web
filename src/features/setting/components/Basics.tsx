@@ -2,7 +2,7 @@ import { useTheme } from "@/components/common/ThemeProvider"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useAuth } from "@/features/authentication"
+import { useAuth } from "@/features/auth"
 // import { Button } from "@/components/ui/button"
 
 const Basics = () => {

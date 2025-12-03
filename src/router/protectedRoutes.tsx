@@ -1,4 +1,4 @@
-import { useAuth } from '@/features/authentication';
+import { useAuth } from '@/features/auth';
 import { ROUTES } from '@/utils/constants';
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';

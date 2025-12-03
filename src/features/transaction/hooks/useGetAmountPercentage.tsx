@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGetAmountPercentageQuery } from "../services/transitionsApi"
+import { useGetAmountPercentageQuery } from "../services/transactionsApi"
 import { TRANSACTION_TYPES } from "@/utils/constants";
 
 const useGetAmountPercentage = (initialTypeId: string) => {

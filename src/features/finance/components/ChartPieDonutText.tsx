@@ -5,7 +5,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import type { AmountPercentageResponse } from "@/features/transition/types/transaction.type"
+import type { AmountPercentageResponse } from "@/features/transaction/types/transaction.type"
 import { PieChartIcon } from "lucide-react"
 
 export const description = "A donut chart with text"

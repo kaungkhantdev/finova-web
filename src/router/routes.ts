@@ -8,16 +8,16 @@ import { AuthRoutes } from "./authRoutes";
 const MainLayout = lazy(() => import('@/components/layouts/MainLayout'));
 const FinancePage = lazy(() => import('@/features/finance/page/FinancePage'));
 const WalletPage = lazy(() => import('@/features/wallet/page/WalletPage'));
-const TransitionPage = lazy(() => import('@/features/transition/page/TransitionPage'));
+const TransitionPage = lazy(() => import('@/features/transaction/page/TransactionPage'));
 const CategoryPage = lazy(() => import('@/features/category/page/CategoryPage'));
 const SettingPage = lazy(() => import('@/features/setting/page/SettingPage'));
 
-// authentication pages
-const Register = lazy(() => import('@/features/authentication/page/RegisterPage'));
-const LoginPage = lazy(() => import('@/features/authentication/page/LoginPage'));
-const ForgotPasswordPage = lazy(() => import('@/features/authentication/page/ForgotPasswordPage'));
-const VerifyOtpPage = lazy(() => import('@/features/authentication/page/VerifyOtpPage'));
-const ResetPasswordPage = lazy(() => import('@/features/authentication/page/ResetPasswordPage'));
+// auth pages
+const Register = lazy(() => import('@/features/auth/page/RegisterPage'));
+const LoginPage = lazy(() => import('@/features/auth/page/LoginPage'));
+const ForgotPasswordPage = lazy(() => import('@/features/auth/page/ForgotPasswordPage'));
+const VerifyOtpPage = lazy(() => import('@/features/auth/page/VerifyOtpPage'));
+const ResetPasswordPage = lazy(() => import('@/features/auth/page/ResetPasswordPage'));
 
 const router = createBrowserRouter([
   {

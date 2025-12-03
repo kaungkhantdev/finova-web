@@ -1,5 +1,5 @@
 import Loading from '@/components/common/Loading';
-import { useGetAllTransaction } from '@/features/transition';
+import { useGetAllTransaction } from '@/features/transaction';
 import { TRANSACTION_TYPES } from '@/utils/constants';
 import { BanknoteArrowDown, BanknoteArrowUp, ChartArea, Receipt, type LucideIcon } from 'lucide-react';
 

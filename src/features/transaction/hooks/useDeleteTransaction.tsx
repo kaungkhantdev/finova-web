@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { useDeleteTransactionMutation } from "../services/transitionsApi";
+import { useDeleteTransactionMutation } from "../services/transactionsApi";
 
 
 const useDeleteTransaction = () => {

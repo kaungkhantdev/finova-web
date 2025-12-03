@@ -19,8 +19,8 @@ import {
 import { Bolt } from "lucide-react"
 import { Link } from "react-router"
 import { ROUTES } from "@/utils/constants"
-import useLogout from "@/features/authentication/hooks/useLogout"
-import { useAuth } from "@/features/authentication"
+import useLogout from "@/features/auth/hooks/useLogout"
+import { useAuth } from "@/features/auth"
 
 export function NavUser() {
   const { onSubmit } = useLogout()

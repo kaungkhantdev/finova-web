@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { toast } from 'sonner';
-import { useCreateTransactionMutation } from '../services/transitionsApi';
+import { useCreateTransactionMutation } from '../services/transactionsApi';
 
 const schema = z.object({
     amount: z.string('Please enter an amount'),

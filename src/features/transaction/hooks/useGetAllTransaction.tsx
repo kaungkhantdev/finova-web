@@ -1,4 +1,4 @@
-import { useGetAllTransactionQuery } from "../services/transitionsApi";
+import { useGetAllTransactionQuery } from "../services/transactionsApi";
 import { useMemo, useState } from "react";
 
 const useGetAllTransaction = (recent: boolean = false, defaultSize?: number, search?: string) => {

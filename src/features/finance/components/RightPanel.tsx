@@ -1,11 +1,11 @@
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { ChartPieDonutText } from './ChartPieDonutText';
 import { RightPanelHeader } from './RightPanelHeader';
-import { AddExpense, AddIncome, useGetAmountPercentage } from '@/features/transition';
+import { AddExpense, AddIncome, useGetAmountPercentage } from '@/features/transaction';
 import { TRANSACTION_TYPES } from '@/utils/constants';
 import Loading from '@/components/common/Loading';
-import useGetMonthlyComparison from '@/features/transition/hooks/useGetMonthlyComparison';
-import { useAuth } from '@/features/authentication';
+import useGetMonthlyComparison from '@/features/transaction/hooks/useGetMonthlyComparison';
+import { useAuth } from '@/features/auth';
 
 export const RightPanel = () => {
   const { user } = useAuth();

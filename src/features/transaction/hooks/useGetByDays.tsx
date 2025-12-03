@@ -1,4 +1,4 @@
-import { useGetByDaysQuery } from "../services/transitionsApi";
+import { useGetByDaysQuery } from "../services/transactionsApi";
 
 const useGetByDays = ({ days }: { days: string }) => {
     const { data, error, isLoading, isSuccess, refetch } = useGetByDaysQuery({ days });

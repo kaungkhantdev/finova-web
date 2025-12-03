@@ -1,4 +1,4 @@
-import { useGetMonthlyComparisonQuery } from "../services/transitionsApi";
+import { useGetMonthlyComparisonQuery } from "../services/transactionsApi";
 
 const useGetMonthlyComparison = () => {
     const { data, error, isLoading, isSuccess, refetch } = useGetMonthlyComparisonQuery();

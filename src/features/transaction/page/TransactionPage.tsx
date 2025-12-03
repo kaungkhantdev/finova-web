@@ -5,7 +5,7 @@ import TransactionTable from "../components/TransactionTable";
 import SearchInput from "@/components/common/SearchInput";
 
 
-const TransitionPage = () => {
+const TransactionPage = () => {
   const [search, setSearch] = useState('');
   return (
     <div className="md:p-8 lg:py-6 lg:pl-0 lg:pr-6 2xl:flex items-center justify-center w-full 2xl:min-h-screen">
@@ -28,4 +28,4 @@ const TransitionPage = () => {
   );
 }
 
-export default TransitionPage
+export default TransactionPage

@@ -2,7 +2,7 @@ import Loading from '@/components/common/Loading';
 import { ROUTES } from '@/utils/constants';
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
-import { useAuth } from '@/features/authentication';
+import { useAuth } from '@/features/auth';
 
 export const AuthRoutes: React.FC = () => {
   const { isAuthenticated, isInitialized } = useAuth();

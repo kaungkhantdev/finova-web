@@ -3,7 +3,7 @@ import './App.css'
 import router from './router/routes'
 import { ThemeProvider } from './components/common/ThemeProvider'
 import { Toaster } from "./components/ui/sonner"
-import { useInitializeAuth } from './features/authentication'
+import { useInitializeAuth } from './features/auth'
 import Loading from './components/common/Loading'
 
 function App() {

@@ -4,7 +4,7 @@ import type { ApiPaginationQueryParams } from "@/types/apiPagination.types"
 import { API_ENDPOINTS } from "@/utils/constants"
 import type { AmountPercentageResponse, GetByDaysResponse, MonthlyComparisonResponse, Transaction, TransactionRequest } from "../types/transaction.type"
 
-export const transitionsApi = baseApi.injectEndpoints({
+export const transactionsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     create: builder.mutation<ApiResponseNotPaginate<Transaction>, TransactionRequest>({
       query: (payload) => ({
@@ -64,4 +64,4 @@ export const {
   useGetAmountPercentageQuery,
   useGetAllTransactionQuery,
   useCreateMutation: useCreateTransactionMutation,
-} = transitionsApi
+} = transactionsApi
