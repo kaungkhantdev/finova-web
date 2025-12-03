@@ -2,6 +2,7 @@ import { fetchBaseQuery, type FetchBaseQueryError } from '@reduxjs/toolkit/query
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import { Mutex } from 'async-mutex';
 import { API_CONFIG } from '@/config/api.config';
+import { API_ENDPOINTS } from '@/utils/constants';
 // import type { RootState } from '../store';
 
 const mutex = new Mutex();
@@ -38,7 +39,7 @@ export const baseQueryWithReauth: BaseQueryFn<
       
       try {
         const refreshResult = await baseQuery(
-          { url: '/auth/refresh', method: 'POST' },
+          { url: API_ENDPOINTS.AUTH.REFRESH, method: 'POST' },
           api,
           extraOptions
         );

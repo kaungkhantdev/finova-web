@@ -7,7 +7,7 @@ import { RightPanel } from "../components/RightPanel";
 const FinancePage = () => {
   return (
     <div className="">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:p-8 lg:p-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:p-8 lg:p-0 min-h-screen">
         {/* Left Column */}
         <div className="lg:col-span-2 space-y-4">
           <div className="lg:py-6 flex items-center justify-center w-full 2xl:min-h-screen">
