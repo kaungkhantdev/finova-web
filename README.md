@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# Finova - React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -6,6 +6,12 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Photo
+
+<p align="center">
+  <img src="./src/assets/finova.png" alt="design-photo"/>
+</p>
 
 ## Expanding the ESLint configuration
 
@@ -67,3 +73,18 @@ export default tseslint.config([
   },
 ])
 ```
+
+## Design Photo
+<p align="center">
+  <img src="./src/assets/sample-2.webp" alt="design-photo"/>
+</p>
+
+
+## Author
+
+<p align="">
+  <b>Kaung Khant Zaw</b>  
+  <br/>
+  <a href="https://github.com/kaungkhantdev">GitHub</a> • 
+  <a href="https://www.linkedin.com/in/kaung-khant-zaw-dev/">LinkedIn</a>
+</p>
